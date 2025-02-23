@@ -1,1 +1,0 @@
-{"root":["./playwright.config.ts","./src/tests/example.spec.ts","./src/tests/codegen/test-case-1-register-user.test.ts","./src/tests/e2e/test-case-1-register-user.test.ts","./src/tests/first-refactor/test-case-1-register-user.test.ts"],"version":"5.7.3"}
