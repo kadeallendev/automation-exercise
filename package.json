@@ -1,0 +1,55 @@
+{
+  "name": "automation-exercise",
+  "version": "1.0.0",
+  "description": "Using Automation Exercise site to add more Playwright practice",
+  "main": "index.js",
+  "scripts": {
+    "test:all": "npx playwright test",
+    "test:regress": "npx playwright test --grep-invert \"@flaky\"",
+    "test:flaky": "npx playwright test --grep \"@flaky\" --max-failures 0 --retries 0",
+    "test:smoke": "npx playwright test --grep \"@smoke\"",
+    "test:rerun": "npx playwright test --last-failed",
+    "codegen": "npx playwright codegen www.automationexercise.com",
+    "ui-mode": "npx playwright test --ui",
+    "debug": "npx playwright test --debug",
+    "build": "tsc -b",
+    "watch": "tsc -w",
+    "lint": "npx @biomejs/biome lint . --write",
+    "check": "ncu & ncu -g",
+    "prepare": "husky",
+    "lint-staged": "npx lint-staged --concurrent false --relative"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Guzikowski/automation-exercise.git"
+  },
+  "keywords": [],
+  "author": "Guzikowski",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Guzikowski/automation-exercise/issues"
+  },
+  "homepage": "https://github.com/Guzikowski/automation-exercise#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": "npx @biomejs/biome check . --write"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@ngneat/falso": "^7.3.0",
+    "@playwright/test": "^1.50.1",
+    "@types/node": "^22.13.4",
+    "@types/zipcodes": "^8.0.5",
+    "dotenv": "^16.4.7",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
+    "typescript": "^5.7.3",
+    "zipcodes": "^8.0.0"
+  }
+}
