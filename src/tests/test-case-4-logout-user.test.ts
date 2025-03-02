@@ -1,5 +1,6 @@
 import { test } from '@playwright/test';
 import { UserData } from 'page-object-model/data/user-data';
+import { blockAds } from 'page-object-model/pages/common';
 import { HomePage } from 'page-object-model/pages/home';
 import { AccountWorkflow } from 'page-object-model/workflows/account-workflow';
 
@@ -12,6 +13,9 @@ test.describe('Test Case 4: Logout User', () => {
     });
   });
   test('Register User, Log Out Then Log In User to Delete', async ({ page }) => {
+    await test.step('Block adds in website', async () => {
+      await blockAds(page);
+    });
     await test.step('Navigate to the website', async () => {
       const homePage = new HomePage(page);
       await homePage.navigateTo();

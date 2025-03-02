@@ -2,17 +2,16 @@ import { test } from '@playwright/test';
 import { UserData } from 'page-object-model/data/user-data';
 import { blockAds } from 'page-object-model/pages/common';
 import { HomePage } from 'page-object-model/pages/home';
-import { FeedbackWorkflow } from 'page-object-model/workflows/feedback-workflow';
 
 let testUser: UserData.User;
 
-test.describe('Test Case 6: Contact Us Form', () => {
+test.describe('Test Case 10: Verify Subscription on Home Page', () => {
   test.beforeEach(async () => {
     await test.step('Setup Test Data', async () => {
       testUser = UserData.createUser();
     });
   });
-  test('Fill out Contact Us page and submit', async ({ page }) => {
+  test('Submit Subscription from Home Page', async ({ page }) => {
     await test.step('Block adds in website', async () => {
       await blockAds(page);
     });
@@ -20,8 +19,13 @@ test.describe('Test Case 6: Contact Us Form', () => {
       const homePage = new HomePage(page);
       await homePage.navigateTo();
     });
-    await test.step('Execute Contact Us Workflow', async () => {
-      await FeedbackWorkflow.SubmitFeedback(page, testUser);
+    await test.step('Submit Subscription', async () => {
+      const homePage = new HomePage(page);
+      await homePage.landedOn();
+      await homePage.checkFooterForSubscription();
+      await homePage.fillEmailForSubscription(testUser.email);
+      await homePage.submitSubscription();
+      await homePage.checkSubscriptionSuccess();
     });
     await test.step('Cleanup Test Data', async () => {
       page.close();
