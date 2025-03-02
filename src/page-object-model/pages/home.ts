@@ -40,5 +40,23 @@ export class HomePage {
   async clickTestCases(): Promise<void> {
     await this.page.getByRole('link', { name: ' Test Cases' }).click();
   }
+  async clickProducts(): Promise<void> {
+    await this.page.getByRole('link', { name: ' Products' }).click();
+  }
+  async clickCart(): Promise<void> {
+    await this.page.getByRole('link', { name: ' Cart' }).click();
+  }
+  async checkFooterForSubscription(): Promise<void> {
+    await expect(this.page.locator('#footer')).toContainText('Subscription');
+  }
+  async fillEmailForSubscription(email: string): Promise<void> {
+    await this.page.getByRole('textbox', { name: 'Your email address' }).fill(email);
+  }
+  async submitSubscription(): Promise<void> {
+    await this.page.getByRole('button', { name: '' }).click();
+  }
+  async checkSubscriptionSuccess(): Promise<void> {
+    await expect(this.page.locator('#footer')).toContainText('You have been successfully subscribed!');
+  }
 }
 export default { HomePage };

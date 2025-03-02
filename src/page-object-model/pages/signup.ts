@@ -26,7 +26,7 @@ export class SignUpPage {
   }
   async selectBirthDate(birthDate: Date): Promise<void> {
     const dayValue = birthDate.getDate().toString();
-    const monthValue = birthDate.getMonth().toString();
+    const monthValue = (birthDate.getMonth() + 1).toString();
     const yearValue = birthDate.getFullYear().toString();
     await this.page.locator('#days').selectOption(dayValue);
     await this.page.locator('#months').selectOption(monthValue);

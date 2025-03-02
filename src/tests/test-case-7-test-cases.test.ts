@@ -1,9 +1,13 @@
 import { test } from '@playwright/test';
+import { blockAds } from 'page-object-model/pages/common';
 import { HomePage } from 'page-object-model/pages/home';
 import { TestCasesPage } from 'page-object-model/pages/test-cases';
 
 test.describe('Test Case 7: Test Cases Page', () => {
   test('Navigation to the Test Cases Page', async ({ page }) => {
+    await test.step('Block adds in website', async () => {
+      await blockAds(page);
+    });
     await test.step('Navigate to the website', async () => {
       const homePage = new HomePage(page);
       await homePage.navigateTo();
