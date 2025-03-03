@@ -1,8 +1,20 @@
-import { randBetweenDate, randCompanyName, randEmail, randFirstName, randLastName, randNumber, randPhoneNumber, randStreetAddress } from '@ngneat/falso';
+import {
+  randBetweenDate,
+  randCompanyName,
+  randCreditCard,
+  randEmail,
+  randFirstName,
+  randGender,
+  randLastName,
+  randNumber,
+  randPhoneNumber,
+  randStreetAddress
+} from '@ngneat/falso';
 import zipcodes from 'zipcodes';
 
 export namespace UserData {
   export type User = {
+    gender: string;
     firstName: string;
     lastName: string;
     userName: string;
@@ -21,6 +33,12 @@ export namespace UserData {
       country: string;
     };
     mobileNumber: string;
+    creditCard: {
+      number: string;
+      expiryMonth: string;
+      expiryYear: string;
+      ccv: string;
+    };
   };
   export function randomizeBirthday() {
     const today = new Date();
@@ -48,6 +66,7 @@ export namespace UserData {
   }
   export function createUser(): User {
     const testUser: UserData.User = {
+      gender: '',
       firstName: '',
       lastName: '',
       userName: '',
@@ -65,9 +84,20 @@ export namespace UserData {
         state: '',
         country: ''
       },
-      mobileNumber: ''
+      mobileNumber: '',
+      creditCard: {
+        number: '',
+        expiryMonth: '',
+        expiryYear: '',
+        ccv: ''
+      }
     };
-    testUser.firstName = randFirstName({ withAccents: false });
+    let gender = randGender().toLowerCase();
+    if (gender !== 'male' && gender !== 'female') {
+      gender = 'female';
+    }
+    testUser.gender = gender;
+    testUser.firstName = randFirstName({ gender: gender as 'male' | 'female' | undefined, withAccents: false });
     testUser.lastName = randLastName({ withAccents: false });
     testUser.userName = `${testUser.firstName}.${testUser.lastName}`.toLowerCase();
     testUser.email = randEmail({ firstName: testUser.firstName, lastName: testUser.lastName, nameSeparator: '.', provider: 'test-email', suffix: 'com' });
@@ -78,6 +108,16 @@ export namespace UserData {
     testUser.address2 = `Suite ${randNumber({ min: 1, max: 9999 })}`;
     testUser.location = getRandomZipcode();
     testUser.mobileNumber = randPhoneNumber();
+    const creditCard = randCreditCard();
+    const [expiryMonth, expiryYear] = creditCard.untilEnd.split('/');
+    if (expiryMonth && expiryYear) {
+      testUser.creditCard = {
+        number: creditCard.number,
+        expiryMonth: expiryMonth.trim(),
+        expiryYear: `20${expiryYear.trim()}`,
+        ccv: creditCard.ccv
+      };
+    }
     return testUser;
   }
 }

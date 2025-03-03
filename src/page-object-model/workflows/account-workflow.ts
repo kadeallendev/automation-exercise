@@ -36,6 +36,7 @@ export namespace AccountWorkflow {
       if (testUser.offers) {
         await signupPage.checkSpecialOffers();
       }
+      await signupPage.checkTitle(testUser.gender);
       await signupPage.enterFirstName(testUser.firstName);
       await signupPage.enterLastName(testUser.lastName);
       await signupPage.enterCompany(testUser.company);
