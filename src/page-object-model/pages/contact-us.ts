@@ -11,7 +11,7 @@ export class ContactUsPage {
     this.baseURL = 'https://automationexercise.com/contact_us';
   }
   async navigateTo(): Promise<void> {
-    await this.page.goto(this.baseURL, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+    await this.page.goto(this.baseURL, { waitUntil: 'domcontentloaded', timeout: 20_000 });
     await this.landedOn();
   }
   async landedOn(): Promise<void> {

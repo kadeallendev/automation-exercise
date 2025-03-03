@@ -2,7 +2,10 @@ export namespace ProductData {
   export enum ProductName {
     BlueTop = 'Blue Top',
     MenTshirt = 'Men Tshirt',
-    SleevelessDress = 'Sleeveless Dress'
+    SleevelessDress = 'Sleeveless Dress',
+    StylishDress = 'Stylish Dress',
+    WinterTop = 'Winter Top',
+    SummerWhiteTop = 'Summer White Top'
   }
   export enum ProductCategory {
     WomanTop = 'Women > Tops',
@@ -18,16 +21,18 @@ export namespace ProductData {
   export enum ProductBrand {
     Polo = 'Polo',
     HAndM = 'H&M',
-    Madame = 'Madame'
+    Madame = 'Madame',
+    MastAndHarbour = 'Mast & Harbour'
   }
   export type Product = {
     id: number;
     name: ProductName;
     category: ProductCategory;
-    price: string;
+    price: number;
     availability: ProductAvailability;
     condition: ProductCondition;
     brand: ProductBrand;
+    quantity: number;
   };
   export interface ProductData {
     product: Product;
@@ -36,6 +41,7 @@ export namespace ProductData {
     conditionDisplayText: string;
     brandDisplayText: string;
     priceDisplayText: string;
+    totalDisplayText: string;
   }
   export class ProductContext implements ProductData {
     public product: Product;
@@ -55,7 +61,10 @@ export namespace ProductData {
     public get priceDisplayText(): string {
       return `Rs. ${this.product.price}`;
     }
-
+    public get totalDisplayText(): string {
+      const total = this.product.quantity * this.product.price;
+      return `Rs. ${total}`;
+    }
     constructor(product: Product) {
       this.product = product;
     }
@@ -67,28 +76,61 @@ export namespace ProductData {
       id: 1,
       name: ProductName.BlueTop,
       category: ProductCategory.WomanTop,
-      price: '500',
+      price: 500,
       availability: ProductAvailability.InStock,
       condition: ProductCondition.New,
-      brand: ProductBrand.Polo
+      brand: ProductBrand.Polo,
+      quantity: 1
     },
     {
       id: 2,
       name: ProductName.MenTshirt,
       category: ProductCategory.MenTshirts,
-      price: '400',
+      price: 400,
       availability: ProductAvailability.InStock,
       condition: ProductCondition.New,
-      brand: ProductBrand.HAndM
+      brand: ProductBrand.HAndM,
+      quantity: 1
     },
     {
       id: 3,
       name: ProductName.SleevelessDress,
       category: ProductCategory.WomenDress,
-      price: '1000',
+      price: 1000,
       availability: ProductAvailability.InStock,
       condition: ProductCondition.New,
-      brand: ProductBrand.Madame
+      brand: ProductBrand.Madame,
+      quantity: 1
+    },
+    {
+      id: 4,
+      name: ProductName.StylishDress,
+      category: ProductCategory.WomenDress,
+      price: 1500,
+      availability: ProductAvailability.InStock,
+      condition: ProductCondition.New,
+      brand: ProductBrand.Madame,
+      quantity: 1
+    },
+    {
+      id: 5,
+      name: ProductName.WinterTop,
+      category: ProductCategory.WomanTop,
+      price: 600,
+      availability: ProductAvailability.InStock,
+      condition: ProductCondition.New,
+      brand: ProductBrand.MastAndHarbour,
+      quantity: 1
+    },
+    {
+      id: 6,
+      name: ProductName.SummerWhiteTop,
+      category: ProductCategory.WomanTop,
+      price: 400,
+      availability: ProductAvailability.InStock,
+      condition: ProductCondition.New,
+      brand: ProductBrand.HAndM,
+      quantity: 1
     }
   ];
   // Function to get a product by name
