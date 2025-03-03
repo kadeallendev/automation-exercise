@@ -44,5 +44,11 @@ export class ViewCartPage {
     await expect(this.page.locator(`#product-${testProduct.product.id}`)).toContainText(testProduct.product.quantity.toString());
     await expect(this.page.locator(`#product-${testProduct.product.id}`)).toContainText(testProduct.totalDisplayText);
   }
+  async clickProceedToCheckout(): Promise<void> {
+    await this.page.getByText('Proceed To Checkout').click();
+  }
+  async clickRegisterLogin(): Promise<void> {
+    await this.page.getByRole('link', { name: 'Register / Login' }).click();
+  }
 }
 export default { ViewCartPage };

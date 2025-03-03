@@ -80,5 +80,12 @@ export class SignUpPage {
   async checkSignUpError(): Promise<void> {
     await expect(this.page.locator('form').filter({ hasText: 'Signup' })).toContainText('Email Address already exist!');
   }
+  async checkTitle(gender: string): Promise<void> {
+    if (gender === 'male') {
+      await this.page.getByRole('radio', { name: 'Mr.' }).check();
+    } else {
+      await this.page.getByRole('radio', { name: 'Mrs.' }).check();
+    }
+  }
 }
 export default { SignUpPage };
