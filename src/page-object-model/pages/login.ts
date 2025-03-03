@@ -11,7 +11,7 @@ export class LoginPage {
     this.baseURL = 'https://automationexercise.com/login';
   }
   async navigateTo(): Promise<void> {
-    await this.page.goto(this.baseURL, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+    await this.page.goto(this.baseURL, { waitUntil: 'domcontentloaded', timeout: 20_000 });
     await this.landedOn();
   }
   async landedOn(): Promise<void> {

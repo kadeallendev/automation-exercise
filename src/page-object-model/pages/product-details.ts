@@ -15,7 +15,7 @@ export class ProductDetailsPage {
   }
   async navigateTo(index: number): Promise<void> {
     const url = `${this.baseURL}/${index}`;
-    await this.page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+    await this.page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20_000 });
     await this.landedOn();
   }
   async landedOn(): Promise<void> {
@@ -32,6 +32,20 @@ export class ProductDetailsPage {
     await expect(this.page.locator('section')).toContainText(testProduct.availabilityDisplayText);
     await expect(this.page.locator('section')).toContainText(testProduct.conditionDisplayText);
     await expect(this.page.locator('section')).toContainText(testProduct.brandDisplayText);
+  }
+  async setQuantity(testProduct: ProductData.ProductData): Promise<void> {
+    const quantity = String(testProduct.product.quantity);
+    await this.page.locator('#quantity').fill(quantity);
+    await expect(this.page.locator('#quantity')).toHaveValue(quantity);
+  }
+  async clickContinueShopping(): Promise<void> {
+    await this.page.getByRole('button', { name: 'Continue Shopping' }).click();
+  }
+  async clickViewCart(): Promise<void> {
+    await this.page.getByRole('link', { name: 'View Cart' }).click();
+  }
+  async addToCart(): Promise<void> {
+    await this.page.getByRole('button', { name: ' Add to cart' }).click();
   }
 }
 export default { ProductDetailsPage };

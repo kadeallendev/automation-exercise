@@ -12,7 +12,7 @@ export class ViewCartPage {
     this.baseURL = 'https://automationexercise.com/view_cart';
   }
   async navigateTo(): Promise<void> {
-    await this.page.goto(this.baseURL, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+    await this.page.goto(this.baseURL, { waitUntil: 'domcontentloaded', timeout: 20_000 });
     await this.landedOn();
   }
   async landedOn(): Promise<void> {
@@ -41,6 +41,8 @@ export class ViewCartPage {
     await expect(this.page.locator(`#product-${testProduct.product.id}`)).toContainText(testProduct.product.name);
     await expect(this.page.locator(`#product-${testProduct.product.id}`)).toContainText(testProduct.product.category);
     await expect(this.page.locator(`#product-${testProduct.product.id}`)).toContainText(testProduct.priceDisplayText);
+    await expect(this.page.locator(`#product-${testProduct.product.id}`)).toContainText(testProduct.product.quantity.toString());
+    await expect(this.page.locator(`#product-${testProduct.product.id}`)).toContainText(testProduct.totalDisplayText);
   }
 }
 export default { ViewCartPage };

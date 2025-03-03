@@ -12,7 +12,7 @@ export class ProductsPage {
     this.baseURL = 'https://automationexercise.com/products';
   }
   async navigateTo(): Promise<void> {
-    await this.page.goto(this.baseURL, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+    await this.page.goto(this.baseURL, { waitUntil: 'domcontentloaded', timeout: 20_000 });
     await this.landedOn();
   }
   async landedOn(): Promise<void> {
@@ -23,9 +23,18 @@ export class ProductsPage {
     await expect(this.page.locator('body')).toContainText('All Products');
     await expect(this.page.locator('body')).toContainText(testProduct.product.name);
   }
-  async clickFirstProductOnAllProducts(): Promise<void> {
+  async clickFirstViewProductOnAllProducts(): Promise<void> {
     await this.page.locator('.choose > .nav > li > a').first().click();
   }
+  async clickViewProductOnAllProducts(index = 1): Promise<void> {
+    if (index === 1) {
+      await this.clickFirstViewProductOnAllProducts();
+    } else {
+      const child = index + 2;
+      await this.page.locator(`div:nth-child(${child}) > .product-image-wrapper > .choose > .nav > li > a`).click();
+    }
+  }
+
   async searchForProduct(productName: string): Promise<void> {
     await this.page.getByRole('textbox', { name: 'Search Product' }).fill(productName);
     await this.page.getByRole('button', { name: '' }).click();
