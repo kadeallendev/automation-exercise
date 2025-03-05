@@ -19,6 +19,9 @@ export class ProductsPage {
     await expect(this.page).toHaveURL(this.baseURL);
     await expect(this.page).toHaveTitle(this.pageTitleMatch);
   }
+  async clickHome(): Promise<void> {
+    await this.page.getByRole('link', { name: ' Home' }).click();
+  }
   async checkAllProductsForProduct(testProduct: ProductData.ProductData): Promise<void> {
     await expect(this.page.locator('body')).toContainText('All Products');
     await expect(this.page.locator('body')).toContainText(testProduct.product.name);
