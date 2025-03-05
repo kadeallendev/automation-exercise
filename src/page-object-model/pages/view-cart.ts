@@ -50,5 +50,14 @@ export class ViewCartPage {
   async clickRegisterLogin(): Promise<void> {
     await this.page.getByRole('link', { name: 'Register / Login' }).click();
   }
+  async removeProductFromCart(index: number): Promise<void> {
+    await this.page.locator(`#product-${index}`).getByRole('cell', { name: '' }).locator('a').click();
+  }
+  async checkCartIsEmpty(): Promise<void> {
+    await expect(this.page.locator('b')).toContainText('Cart is empty!');
+  }
+  async clickHereToRerunToProducts(): Promise<void> {
+    await this.page.getByRole('link', { name: 'here' }).click();
+  }
 }
 export default { ViewCartPage };

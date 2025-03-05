@@ -5,7 +5,9 @@ export namespace ProductData {
     SleevelessDress = 'Sleeveless Dress',
     StylishDress = 'Stylish Dress',
     WinterTop = 'Winter Top',
-    SummerWhiteTop = 'Summer White Top'
+    SummerWhiteTop = 'Summer White Top',
+    MadameTopForWomen = 'Madame Top For Women',
+    FancyGreenTop = 'Fancy Green Top'
   }
   export enum ProductCategory {
     WomanTop = 'Women > Tops',
@@ -130,6 +132,26 @@ export namespace ProductData {
       availability: ProductAvailability.InStock,
       condition: ProductCondition.New,
       brand: ProductBrand.HAndM,
+      quantity: 1
+    },
+    {
+      id: 7,
+      name: ProductName.MadameTopForWomen,
+      category: ProductCategory.WomanTop,
+      price: 1000,
+      availability: ProductAvailability.InStock,
+      condition: ProductCondition.New,
+      brand: ProductBrand.Madame,
+      quantity: 1
+    },
+    {
+      id: 8,
+      name: ProductName.FancyGreenTop,
+      category: ProductCategory.WomanTop,
+      price: 700,
+      availability: ProductAvailability.InStock,
+      condition: ProductCondition.New,
+      brand: ProductBrand.Polo,
       quantity: 1
     }
   ];
