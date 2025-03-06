@@ -43,7 +43,7 @@ test.describe('Test Case 11: Verify Subscription on Cart Page', () => {
       await homePage.landedOn();
     });
     await test.step('Cleanup Test Data', async () => {
-      page.close();
+      await page.close();
     });
   });
 });

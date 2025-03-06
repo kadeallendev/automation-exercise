@@ -28,7 +28,7 @@ test.describe('Test Case 10: Verify Subscription on Home Page', () => {
       await homePage.checkSubscriptionSuccess();
     });
     await test.step('Cleanup Test Data', async () => {
-      page.close();
+      await page.close();
     });
   });
 });

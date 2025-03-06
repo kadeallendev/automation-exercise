@@ -110,7 +110,7 @@ test.describe('Test Case 15: Place Order: Register before Checkout', () => {
       await homePage.checkUserLoggedOut();
     });
     await test.step('Cleanup Test Data', async () => {
-      page.close();
+      await page.close();
     });
   });
 });

@@ -46,7 +46,7 @@ test.describe('Test Case 8: Verify All Products and product detail page', () => 
       await productsPage.checkAllProductsForProduct(testProduct);
     });
     await test.step('Cleanup Test Data', async () => {
-      page.close();
+      await page.close();
     });
   });
 });

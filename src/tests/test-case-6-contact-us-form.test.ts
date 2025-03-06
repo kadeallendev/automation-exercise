@@ -24,7 +24,7 @@ test.describe('Test Case 6: Contact Us Form', () => {
       await FeedbackWorkflow.SubmitFeedback(page, testUser);
     });
     await test.step('Cleanup Test Data', async () => {
-      page.close();
+      await page.close();
     });
   });
 });

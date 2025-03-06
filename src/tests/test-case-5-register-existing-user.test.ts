@@ -40,7 +40,7 @@ test.describe('Test Case 5: Register User with existing email', () => {
       await AccountWorkflow.DeleteLoggedInUser(page);
     });
     await test.step('Cleanup Test Data', async () => {
-      page.close();
+      await page.close();
     });
   });
 });

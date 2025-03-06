@@ -36,7 +36,7 @@ test.describe('Test Case 2: Login User with correct email and password', () => {
       await AccountWorkflow.DeleteLoggedInUser(page);
     });
     await test.step('Cleanup Test Data', async () => {
-      page.close();
+      await page.close();
     });
   });
 });
