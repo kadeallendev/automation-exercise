@@ -162,7 +162,7 @@ test.describe('Test Case 14: Place Order: Register while Checkout', () => {
       await homePage.checkUserLoggedOut();
     });
     await test.step('Cleanup Test Data', async () => {
-      page.close();
+      await page.close();
     });
   });
 });

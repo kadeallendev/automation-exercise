@@ -24,7 +24,7 @@ test.describe('Test Case 3: Login User with incorrect email', () => {
       await AccountWorkflow.IncorrectLogIn(page, testUser);
     });
     await test.step('Cleanup Test Data', async () => {
-      page.close();
+      await page.close();
     });
   });
 });

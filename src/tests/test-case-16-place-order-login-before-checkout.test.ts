@@ -133,7 +133,7 @@ test.describe('Test Case 16: Place Order: Login before Checkout', () => {
       await homePage.checkUserLoggedOut();
     });
     await test.step('Cleanup Test Data', async () => {
-      page.close();
+      await page.close();
     });
   });
 });

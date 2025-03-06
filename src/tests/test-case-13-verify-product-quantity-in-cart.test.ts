@@ -68,7 +68,7 @@ test.describe('Test Case 13: Verify Product Quantity correct in Cart page', () =
       await homePage.landedOn();
     });
     await test.step('Cleanup Test Data', async () => {
-      page.close();
+      await page.close();
     });
   });
 });

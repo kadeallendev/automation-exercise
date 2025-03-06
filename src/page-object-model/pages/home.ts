@@ -58,5 +58,17 @@ export class HomePage {
   async checkSubscriptionSuccess(): Promise<void> {
     await expect(this.page.locator('#footer')).toContainText('You have been successfully subscribed!');
   }
+  async filterCategory(category: string, subCategory: string): Promise<void> {
+    await this.page.getByRole('heading', { name: 'Category' }).click();
+    await this.page.getByRole('link', { name: ` ${category}` }).click();
+    await expect(this.page.locator(`#${category}`)).toContainText(subCategory);
+    await this.page.getByRole('link', { name: subCategory }).click();
+    await expect(this.page.locator('section')).toContainText(`${category} - ${subCategory} Products`);
+  }
+  async filterBrand(brand: string): Promise<void> {
+    await expect(this.page.locator('body')).toContainText('Brands');
+    const brandRegex = new RegExp(` ${brand}`);
+    await this.page.getByRole('link', { name: brandRegex }).click();
+  }
 }
 export default { HomePage };

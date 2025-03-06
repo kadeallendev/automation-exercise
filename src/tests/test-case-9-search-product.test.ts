@@ -50,7 +50,7 @@ test.describe('Test Case 9: Search Product', () => {
       await productsPage.checkAllProductsForProduct(testProduct);
     });
     await test.step('Cleanup Test Data', async () => {
-      page.close();
+      await page.close();
     });
   });
 });

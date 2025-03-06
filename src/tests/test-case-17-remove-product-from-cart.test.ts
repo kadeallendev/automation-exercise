@@ -72,7 +72,7 @@ test.describe('Test Case 17: Remove Products from Cart page', () => {
       await homePage.landedOn();
     });
     await test.step('Cleanup Test Data', async () => {
-      page.close();
+      await page.close();
     });
   });
 });

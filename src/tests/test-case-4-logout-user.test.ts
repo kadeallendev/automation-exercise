@@ -36,7 +36,7 @@ test.describe('Test Case 4: Logout User', () => {
       await AccountWorkflow.DeleteLoggedInUser(page);
     });
     await test.step('Cleanup Test Data', async () => {
-      page.close();
+      await page.close();
     });
   });
 });

@@ -27,7 +27,7 @@ test.describe('Test Case 1: Register User', () => {
       await AccountWorkflow.DeleteLoggedInUser(page);
     });
     await test.step('Cleanup Test Data', async () => {
-      page.close();
+      await page.close();
     });
   });
 });
