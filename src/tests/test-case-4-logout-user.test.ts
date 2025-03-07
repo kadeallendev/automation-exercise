@@ -1,8 +1,6 @@
-import { test } from '@playwright/test';
 import { UserData } from 'page-object-model/data/user-data';
-import { blockAds } from 'page-object-model/pages/common';
-import { HomePage } from 'page-object-model/pages/home';
 import { AccountWorkflow } from 'page-object-model/workflows/account-workflow';
+import { test } from '../fixtures/base-pom';
 
 let testUser: UserData.User;
 
@@ -12,31 +10,24 @@ test.describe('Test Case 4: Logout User', () => {
       testUser = UserData.createUser();
     });
   });
-  test('Register User, Log Out Then Log In User to Delete', async ({ page }) => {
-    await test.step('Block adds in website', async () => {
-      await blockAds(page);
-    });
-    await test.step('Navigate to the website', async () => {
-      const homePage = new HomePage(page);
-      await homePage.navigateTo();
-    });
+  test('Register User, Log Out Then Log In User to Delete', async ({ homePage, loginPage, signUpPage, accountCreatePage, deleteAccountPage }) => {
     await test.step('Execute Register User Workflow', async () => {
-      await AccountWorkflow.RegisterUser(page, testUser);
+      await AccountWorkflow.RegisterUser(homePage, loginPage, signUpPage, accountCreatePage, testUser);
     });
 
     await test.step('Execute Log Out User Workflow', async () => {
-      await AccountWorkflow.LogOut(page, testUser);
+      await AccountWorkflow.LogOut(homePage, loginPage, testUser);
     });
 
     await test.step('Execute Log In User Workflow', async () => {
-      await AccountWorkflow.LogIn(page, testUser);
+      await AccountWorkflow.LogIn(homePage, loginPage, testUser);
     });
 
     await test.step('Execute Delete Logged In User Workflow', async () => {
-      await AccountWorkflow.DeleteLoggedInUser(page);
+      await AccountWorkflow.DeleteLoggedInUser(homePage, deleteAccountPage);
     });
     await test.step('Cleanup Test Data', async () => {
-      await page.close();
+      await homePage.getPage().close();
     });
   });
 });
