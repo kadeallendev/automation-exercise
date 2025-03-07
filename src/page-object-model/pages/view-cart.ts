@@ -1,63 +1,67 @@
-import { type Page, expect } from '@playwright/test';
+import { type Locator, type Page, expect } from '@playwright/test';
 import type { ProductData } from 'page-object-model/data/product-data';
+import { BasePage } from './base-page';
 
-export class ViewCartPage {
-  private page: Page;
+export class ViewCartPage extends BasePage {
   private pageTitleMatch: RegExp;
   private baseURL: string;
+  private proceedToCheckoutButton: Locator;
+  private registerLoginLink: Locator;
+  private cartEmptyText: Locator;
+  private returnToProductsLink: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.pageTitleMatch = /.*Automation Exercise - Checkout/i;
-    this.baseURL = 'https://automationexercise.com/view_cart';
+    this.baseURL = `${process.env.BASE_URL}view_cart`;
+    this.proceedToCheckoutButton = this.page.getByText('Proceed To Checkout');
+    this.registerLoginLink = this.page.getByRole('link', { name: 'Register / Login' });
+    this.cartEmptyText = this.page.locator('b').locator('text=Cart is empty!');
+    this.returnToProductsLink = this.page.getByRole('link', { name: 'here' });
   }
+
+  private productLocator(productId: number): Locator {
+    return this.page.locator(`#product-${productId}`);
+  }
+
   async navigateTo(): Promise<void> {
     await this.page.goto(this.baseURL, { waitUntil: 'domcontentloaded', timeout: 20_000 });
     await this.landedOn();
   }
+
   async landedOn(): Promise<void> {
     await expect(this.page).toHaveURL(this.baseURL);
     await expect(this.page).toHaveTitle(this.pageTitleMatch);
   }
-  async clickHome(): Promise<void> {
-    await this.page.getByRole('link', { name: ' Home' }).click();
-  }
-  async clickProducts(): Promise<void> {
-    await this.page.getByRole('link', { name: ' Products' }).click();
-  }
-  async checkFooterForSubscription(): Promise<void> {
-    await expect(this.page.getByRole('heading')).toContainText('Subscription');
-  }
-  async fillEmailForSubscription(email: string): Promise<void> {
-    await this.page.getByRole('textbox', { name: 'Your email address' }).fill(email);
-  }
-  async submitSubscription(): Promise<void> {
-    await this.page.getByRole('button', { name: '' }).click();
-  }
-  async checkSubscriptionSuccess(): Promise<void> {
-    await expect(this.page.locator('#footer')).toContainText('You have been successfully subscribed!');
-  }
+
   async checkProductDetailInCart(testProduct: ProductData.ProductData): Promise<void> {
-    await expect(this.page.locator(`#product-${testProduct.product.id}`)).toContainText(testProduct.product.name);
-    await expect(this.page.locator(`#product-${testProduct.product.id}`)).toContainText(testProduct.product.category);
-    await expect(this.page.locator(`#product-${testProduct.product.id}`)).toContainText(testProduct.priceDisplayText);
-    await expect(this.page.locator(`#product-${testProduct.product.id}`)).toContainText(testProduct.product.quantity.toString());
-    await expect(this.page.locator(`#product-${testProduct.product.id}`)).toContainText(testProduct.totalDisplayText);
+    const productLocator = this.productLocator(testProduct.product.id);
+    await expect(productLocator).toContainText(testProduct.product.name);
+    await expect(productLocator).toContainText(testProduct.product.category);
+    await expect(productLocator).toContainText(testProduct.priceDisplayText);
+    await expect(productLocator).toContainText(testProduct.product.quantity.toString());
+    await expect(productLocator).toContainText(testProduct.totalDisplayText);
   }
+
   async clickProceedToCheckout(): Promise<void> {
-    await this.page.getByText('Proceed To Checkout').click();
+    await this.proceedToCheckoutButton.click();
   }
+
   async clickRegisterLogin(): Promise<void> {
-    await this.page.getByRole('link', { name: 'Register / Login' }).click();
+    await this.registerLoginLink.click();
   }
+
   async removeProductFromCart(index: number): Promise<void> {
-    await this.page.locator(`#product-${index}`).getByRole('cell', { name: '' }).locator('a').click();
+    await this.productLocator(index).getByRole('cell', { name: '' }).locator('a').click();
   }
+
   async checkCartIsEmpty(): Promise<void> {
-    await expect(this.page.locator('b')).toContainText('Cart is empty!');
+    await expect(this.cartEmptyText).toBeVisible();
   }
-  async clickHereToRerunToProducts(): Promise<void> {
-    await this.page.getByRole('link', { name: 'here' }).click();
+
+  async clickHereToReturnToProducts(): Promise<void> {
+    await this.returnToProductsLink.click();
   }
 }
+
 export default { ViewCartPage };

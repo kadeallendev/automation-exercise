@@ -9,7 +9,7 @@
     "test:flaky": "npx playwright test --grep \"@flaky\" --max-failures 0 --retries 0",
     "test:smoke": "npx playwright test --grep \"@smoke\"",
     "test:rerun": "npx playwright test --last-failed",
-    "codegen": "npx playwright codegen www.automationexercise.com",
+    "codegen": "npx playwright codegen --viewport-size=\"1920, 1080\" www.automationexercise.com",
     "ui-mode": "npx playwright test --ui",
     "debug": "npx playwright test --debug",
     "build": "tsc -b",
@@ -43,7 +43,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@ngneat/falso": "^7.3.0",
-    "@playwright/test": "^1.50.1",
+    "@playwright/test": "^1.51.0",
     "@types/node": "^22.13.9",
     "@types/zipcodes": "^8.0.5",
     "dotenv": "^16.4.7",
