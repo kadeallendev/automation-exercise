@@ -13,7 +13,7 @@ export class PaymentDonePage extends BasePage {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - Order Placed/i;
     this.baseURLPattern = /https:\/\/automationexercise\.com\/payment_done\/\d+/i;
-    this.baseURL = 'https://automationexercise.com/payment_done';
+    this.baseURL = `${process.env.BASE_URL}payment_done`;
     this.orderPlacedText = this.page.getByText('Order Placed!');
     this.congratulationsText = this.page.getByText('Congratulations! Your order');
     this.continueButton = this.page.getByRole('link', { name: 'Continue' });

@@ -8,7 +8,7 @@ export class HomePage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise/i;
-    this.baseURL = 'https://automationexercise.com/';
+    this.baseURL = `${process.env.BASE_URL}`;
   }
   async navigateTo(): Promise<void> {
     await this.page.goto(this.baseURL, { waitUntil: 'domcontentloaded', timeout: 20_000 });

@@ -14,7 +14,7 @@ export class PaymentPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - Payment/i;
-    this.baseURL = 'https://automationexercise.com/payment';
+    this.baseURL = `${process.env.BASE_URL}payment`;
     this.cardOwnerInput = this.page.locator('input[name="name_on_card"]');
     this.cardNumberInput = this.page.locator('input[name="card_number"]');
     this.cardCvcInput = this.page.getByRole('textbox', { name: 'ex.' });

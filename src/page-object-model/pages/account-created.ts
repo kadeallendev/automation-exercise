@@ -11,7 +11,7 @@ export class AccountCreatePage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - Account Created/i; // FIXME: Update the title once title is updated
-    this.baseURL = 'https://automationexercise.com/account_created';
+    this.baseURL = `${process.env.BASE_URL}account_created`;
     this.accountCreatedText = this.page.locator('b');
     this.continueButton = this.page.getByRole('link', { name: 'Continue' });
     this.accountCreatedMessage = 'Account Created!';

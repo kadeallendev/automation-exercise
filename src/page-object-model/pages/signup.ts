@@ -31,7 +31,7 @@ export class SignUpPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - Signup/i;
-    this.baseURL = 'https://automationexercise.com/signup';
+    this.baseURL = `${process.env.BASE_URL}signup`;
     this.form = this.page.locator('#form');
     this.passwordInput = this.page.getByRole('textbox', { name: 'Password *' });
     this.daySelect = this.page.locator('#days');

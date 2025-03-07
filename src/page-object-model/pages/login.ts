@@ -17,7 +17,7 @@ export class LoginPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - Signup \/ Login/i;
-    this.baseURL = 'https://automationexercise.com/login';
+    this.baseURL = `${process.env.BASE_URL}login`;
     this.newUserSignupText = this.page.locator('#form').locator('text=New User Signup!');
     this.loginText = this.page.locator('#form').locator('text=Login to your account');
     this.newUserNameInput = this.page.getByRole('textbox', { name: 'Name' });

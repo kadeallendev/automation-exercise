@@ -16,7 +16,7 @@ export class ContactUsPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - Contact Us/i;
-    this.baseURL = 'https://automationexercise.com/contact_us';
+    this.baseURL = `${process.env.BASE_URL}contact_us`;
     this.nameInput = this.page.getByRole('textbox', { name: 'Name' });
     this.emailInput = this.page.getByRole('textbox', { name: 'Email', exact: true });
     this.subjectInput = this.page.getByRole('textbox', { name: 'Subject' });

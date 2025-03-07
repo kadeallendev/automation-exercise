@@ -15,7 +15,7 @@ export class ProductsPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - All Products/i;
-    this.baseURL = 'https://automationexercise.com/products';
+    this.baseURL = `${process.env.BASE_URL}products`;
     this.allProductsText = this.page.locator('body').locator('text=All Products');
     this.searchProductInput = this.page.getByRole('textbox', { name: 'Search Product' });
     this.searchButton = this.page.getByRole('button', { name: '' });

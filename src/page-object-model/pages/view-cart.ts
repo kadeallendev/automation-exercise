@@ -13,7 +13,7 @@ export class ViewCartPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - Checkout/i;
-    this.baseURL = 'https://automationexercise.com/view_cart';
+    this.baseURL = `${process.env.BASE_URL}view_cart`;
     this.proceedToCheckoutButton = this.page.getByText('Proceed To Checkout');
     this.registerLoginLink = this.page.getByRole('link', { name: 'Register / Login' });
     this.cartEmptyText = this.page.locator('b').locator('text=Cart is empty!');

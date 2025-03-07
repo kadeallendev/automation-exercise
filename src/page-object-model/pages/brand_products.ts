@@ -7,7 +7,7 @@ export class BrandProductsPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.baseURL = 'https://automationexercise.com/brand_products';
+    this.baseURL = `${process.env.BASE_URL}brand_products`;
     this.brandBanner = this.page.locator('section');
   }
 

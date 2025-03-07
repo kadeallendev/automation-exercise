@@ -15,7 +15,7 @@ export class CheckoutPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - Checkout/i;
-    this.baseURL = 'https://automationexercise.com/checkout';
+    this.baseURL = `${process.env.BASE_URL}checkout`;
     this.addressDetailsHeading = this.page.getByRole('heading', { name: 'Address Details' });
     this.deliveryAddress = this.page.locator('#address_delivery');
     this.orderSummary = this.page.locator('tbody');

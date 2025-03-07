@@ -30,7 +30,7 @@ export default defineConfig({
     navigationTimeout: 20_000,
     viewport: { width: 1920, height: 1080 },
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: 'https://automationexercise.com/',
+    baseURL: process.env.BASE_URL || 'https://automationexercise.com/',
 
     /* Capture Screenshots of tests */
     screenshot: {

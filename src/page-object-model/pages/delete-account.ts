@@ -11,7 +11,7 @@ export class DeleteAccountPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - Account Created/i; // FIXME: Update the title once title is updated
-    this.baseURL = 'https://automationexercise.com/delete_account';
+    this.baseURL = `${process.env.BASE_URL}delete_account`;
     this.accountDeletedText = this.page.locator('b');
     this.continueButton = this.page.getByRole('link', { name: 'Continue' });
     this.accountDeletedMessage = 'Account Deleted!';

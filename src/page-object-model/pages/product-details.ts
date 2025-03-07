@@ -16,7 +16,7 @@ export class ProductDetailsPage extends BasePage {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - Product Details/i;
     this.baseURLPattern = /https:\/\/automationexercise\.com\/product_details\/\d+/i;
-    this.baseURL = 'https://automationexercise.com/product_details/';
+    this.baseURL = `${process.env.BASE_URL}product_details/`;
     this.section = this.page.locator('section');
     this.quantityInput = this.page.locator('#quantity');
     this.continueShoppingButton = this.page.getByRole('button', { name: 'Continue Shopping' });

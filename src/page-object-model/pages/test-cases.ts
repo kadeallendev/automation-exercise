@@ -8,7 +8,7 @@ export class TestCasesPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.pageTitleMatch = /.*Automation Practice Website for UI Testing - Test Cases/i;
-    this.baseURL = 'https://automationexercise.com/test_cases';
+    this.baseURL = `${process.env.BASE_URL}test_cases`;
   }
 
   async navigateTo(): Promise<void> {
