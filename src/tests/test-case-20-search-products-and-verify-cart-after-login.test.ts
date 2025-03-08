@@ -1,4 +1,3 @@
-import { CommonData } from 'page-object-model/data/common-data';
 import { ProductData } from 'page-object-model/data/product-data';
 import { UserData } from 'page-object-model/data/user-data';
 import { AccountWorkflow } from 'page-object-model/workflows/account-workflow';
@@ -7,7 +6,7 @@ import { test } from '../fixtures/base-pom';
 let testUser: UserData.User;
 let testProduct: ProductData.ProductData;
 
-test.describe('Test Case 15: Place Order: Register before Checkout', () => {
+test.describe('Test Case 20: Search Products and Verify Cart After Login', () => {
   test.beforeEach(async () => {
     await test.step('Setup Test Data', async () => {
       testUser = UserData.createUser();
@@ -15,7 +14,7 @@ test.describe('Test Case 15: Place Order: Register before Checkout', () => {
       testProduct = new ProductData.ProductContext(product);
     });
   });
-  test('Register User Then Add Products to Cart and Check Out', async ({
+  test('Register User Then Search Add Products to Cart and Verify Login of Cart', async ({
     homePage,
     productsPage,
     productDetailsPage,
@@ -23,9 +22,6 @@ test.describe('Test Case 15: Place Order: Register before Checkout', () => {
     loginPage,
     signUpPage,
     accountCreatePage,
-    checkoutPage,
-    paymentPage,
-    paymentDonePage,
     deleteAccountPage
   }) => {
     await test.step('Execute Register User Workflow', async () => {
@@ -45,8 +41,11 @@ test.describe('Test Case 15: Place Order: Register before Checkout', () => {
       await productsPage.landedOn();
       await productsPage.checkAllProductsForProduct(testProduct);
     });
+    await test.step('Search Product', async () => {
+      await productsPage.searchForProduct(testProduct.product.name);
+    });
     await test.step('View Product Details', async () => {
-      await productsPage.clickViewProductOnAllProducts(testProduct.product.id);
+      await productsPage.clickFirstProductOnSearchedProducts();
       await productDetailsPage.landedOn();
       await productDetailsPage.checkProductDetailsForProduct(testProduct);
     });
@@ -66,41 +65,27 @@ test.describe('Test Case 15: Place Order: Register before Checkout', () => {
       await viewCartPage.landedOn();
       await viewCartPage.checkProductDetailInCart(testProduct);
     });
-    await test.step('Proceed to Checkout', async () => {
+    await test.step('Login', async () => {
       await viewCartPage.landedOn();
-      await viewCartPage.clickProceedToCheckout();
-      await viewCartPage.clickRegisterLogin();
+      await viewCartPage.clickSignupLogin();
       await loginPage.landedOn();
       await loginPage.enterEmail(testUser.email);
       await loginPage.enterPassword(testUser.password);
       await loginPage.clickLogin();
       await homePage.landedOn();
       await homePage.checkUserLoggedIn(testUser.userName);
+    });
+    await test.step('View Cart as Logged in User', async () => {
+      await homePage.landedOn();
       await homePage.clickCart();
       await viewCartPage.landedOn();
-      await viewCartPage.clickProceedToCheckout();
     });
-    await test.step('Checkout', async () => {
-      await checkoutPage.landedOn();
-      await checkoutPage.verifyOrderDetails(testUser, testProduct);
-      await checkoutPage.fillMessage(CommonData.randomSentence());
-      await checkoutPage.clickPlaceOrder();
+    await test.step('Verify Products in Cart', async () => {
+      await viewCartPage.landedOn();
+      await viewCartPage.checkProductDetailInCart(testProduct);
+      await viewCartPage.clickHome();
     });
-    await test.step('Payment', async () => {
-      await paymentPage.landedOn();
-      const fullName = `${testUser.firstName} ${testUser.lastName}`;
-      await paymentPage.enterCardOwner(fullName);
-      await paymentPage.enterCardNumber(testUser.creditCard.number);
-      await paymentPage.enterCardCvc(testUser.creditCard.ccv);
-      await paymentPage.enterCardExpiryMonth(testUser.creditCard.expiryMonth);
-      await paymentPage.enterCardExpiryYear(testUser.creditCard.expiryYear);
-      await paymentPage.clickPayAndConfirmOrder();
-    });
-    await test.step('Payment', async () => {
-      await paymentDonePage.landedOn();
-      await paymentDonePage.checkOrderPlaced();
-      await paymentDonePage.clickContinue();
-    });
+
     await test.step('Delete Account', async () => {
       await homePage.landedOn();
       await homePage.clickDeleteAccount();
