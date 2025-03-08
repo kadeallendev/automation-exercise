@@ -4,22 +4,22 @@ import { BasePage } from './base-page';
 export class PaymentPage extends BasePage {
   private pageTitleMatch: RegExp;
   private baseURL: string;
-  private cardOwnerInput: Locator;
-  private cardNumberInput: Locator;
   private cardCvcInput: Locator;
   private cardExpiryMonthInput: Locator;
   private cardExpiryYearInput: Locator;
+  private cardNumberInput: Locator;
+  private cardOwnerInput: Locator;
   private payAndConfirmOrderButton: Locator;
 
   constructor(page: Page) {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - Payment/i;
     this.baseURL = `${process.env.BASE_URL}payment`;
-    this.cardOwnerInput = this.page.locator('input[name="name_on_card"]');
-    this.cardNumberInput = this.page.locator('input[name="card_number"]');
     this.cardCvcInput = this.page.getByRole('textbox', { name: 'ex.' });
     this.cardExpiryMonthInput = this.page.getByRole('textbox', { name: 'MM' });
     this.cardExpiryYearInput = this.page.getByRole('textbox', { name: 'YYYY' });
+    this.cardNumberInput = this.page.locator('input[name="card_number"]');
+    this.cardOwnerInput = this.page.locator('input[name="name_on_card"]');
     this.payAndConfirmOrderButton = this.page.getByRole('button', { name: 'Pay and Confirm Order' });
   }
 

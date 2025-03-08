@@ -5,18 +5,18 @@ export class PaymentDonePage extends BasePage {
   private pageTitleMatch: RegExp;
   private baseURLPattern: RegExp;
   private baseURL: string;
-  private orderPlacedText: Locator;
   private congratulationsText: Locator;
   private continueButton: Locator;
+  private orderPlacedText: Locator;
 
   constructor(page: Page) {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - Order Placed/i;
     this.baseURLPattern = /https:\/\/automationexercise\.com\/payment_done\/\d+/i;
     this.baseURL = `${process.env.BASE_URL}payment_done`;
-    this.orderPlacedText = this.page.getByText('Order Placed!');
     this.congratulationsText = this.page.getByText('Congratulations! Your order');
     this.continueButton = this.page.getByRole('link', { name: 'Continue' });
+    this.orderPlacedText = this.page.getByText('Order Placed!');
   }
 
   async navigateTo(index: number): Promise<void> {

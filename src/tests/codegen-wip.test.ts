@@ -5,4 +5,8 @@ test('Test Case', async ({ page }) => {
   await page.goto(baseURL);
   await expect(page).toHaveURL(baseURL);
   // Record after this line
+  //
+  await expect(page.getByRole('heading', { name: 'recommended items' })).toBeVisible();
+  await page.locator('.item > div > .product-image-wrapper > .single-products > .productinfo > .btn').first().click();
+  await page.getByRole('link', { name: 'View Cart' }).click();
 });

@@ -4,29 +4,29 @@ import { BasePage } from './base-page';
 export class LoginPage extends BasePage {
   private baseURL: string;
   private pageTitleMatch: RegExp;
-  private newUserSignupText: Locator;
-  private loginText: Locator;
-  private newUserNameInput: Locator;
-  private newUserEmailInput: Locator;
-  private signupButton: Locator;
   private emailInput: Locator;
-  private passwordInput: Locator;
   private loginButton: Locator;
   private loginErrorText: Locator;
+  private loginText: Locator;
+  private newUserEmailInput: Locator;
+  private newUserNameInput: Locator;
+  private newUserSignupText: Locator;
+  private passwordInput: Locator;
+  private signupButton: Locator;
 
   constructor(page: Page) {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - Signup \/ Login/i;
     this.baseURL = `${process.env.BASE_URL}login`;
-    this.newUserSignupText = this.page.locator('#form').locator('text=New User Signup!');
-    this.loginText = this.page.locator('#form').locator('text=Login to your account');
-    this.newUserNameInput = this.page.getByRole('textbox', { name: 'Name' });
-    this.newUserEmailInput = this.page.locator('form').filter({ hasText: 'Signup' }).getByPlaceholder('Email Address');
-    this.signupButton = this.page.getByRole('button', { name: 'Signup' });
     this.emailInput = this.page.locator('form').filter({ hasText: 'Login' }).getByPlaceholder('Email Address');
-    this.passwordInput = this.page.getByRole('textbox', { name: 'Password' });
     this.loginButton = this.page.getByRole('button', { name: 'Login' });
     this.loginErrorText = this.page.locator('form').filter({ hasText: 'Login' }).locator('text=Your email or password is incorrect!');
+    this.loginText = this.page.locator('#form').locator('text=Login to your account');
+    this.newUserEmailInput = this.page.locator('form').filter({ hasText: 'Signup' }).getByPlaceholder('Email Address');
+    this.newUserNameInput = this.page.getByRole('textbox', { name: 'Name' });
+    this.newUserSignupText = this.page.locator('#form').locator('text=New User Signup!');
+    this.passwordInput = this.page.getByRole('textbox', { name: 'Password' });
+    this.signupButton = this.page.getByRole('button', { name: 'Signup' });
   }
 
   async navigateTo(): Promise<void> {

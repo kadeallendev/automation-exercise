@@ -8,8 +8,8 @@ export class CheckoutPage extends BasePage {
   private baseURL: string;
   private addressDetailsHeading: Locator;
   private deliveryAddress: Locator;
-  private orderSummary: Locator;
   private messageTextarea: Locator;
+  private orderSummary: Locator;
   private placeOrderButton: Locator;
 
   constructor(page: Page) {
@@ -18,8 +18,8 @@ export class CheckoutPage extends BasePage {
     this.baseURL = `${process.env.BASE_URL}checkout`;
     this.addressDetailsHeading = this.page.getByRole('heading', { name: 'Address Details' });
     this.deliveryAddress = this.page.locator('#address_delivery');
-    this.orderSummary = this.page.locator('tbody');
     this.messageTextarea = this.page.locator('textarea[name="message"]');
+    this.orderSummary = this.page.locator('tbody');
     this.placeOrderButton = this.page.getByRole('link', { name: 'Place Order' });
   }
 

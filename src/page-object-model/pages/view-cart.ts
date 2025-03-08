@@ -3,20 +3,20 @@ import type { ProductData } from 'page-object-model/data/product-data';
 import { BasePage } from './base-page';
 
 export class ViewCartPage extends BasePage {
-  private pageTitleMatch: RegExp;
   private baseURL: string;
+  private cartEmptyText: Locator;
+  private pageTitleMatch: RegExp;
   private proceedToCheckoutButton: Locator;
   private registerLoginLink: Locator;
-  private cartEmptyText: Locator;
   private returnToProductsLink: Locator;
 
   constructor(page: Page) {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - Checkout/i;
     this.baseURL = `${process.env.BASE_URL}view_cart`;
+    this.cartEmptyText = this.page.locator('b').locator('text=Cart is empty!');
     this.proceedToCheckoutButton = this.page.getByText('Proceed To Checkout');
     this.registerLoginLink = this.page.getByRole('link', { name: 'Register / Login' });
-    this.cartEmptyText = this.page.locator('b').locator('text=Cart is empty!');
     this.returnToProductsLink = this.page.getByRole('link', { name: 'here' });
   }
 

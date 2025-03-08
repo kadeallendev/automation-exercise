@@ -6,10 +6,8 @@ export class ProductsPage extends BasePage {
   private pageTitleMatch: RegExp;
   private baseURL: string;
   private allProductsText: Locator;
-  private searchProductInput: Locator;
   private searchButton: Locator;
-  private continueShoppingButton: Locator;
-  private viewCartLink: Locator;
+  private searchProductInput: Locator;
   private searchedProductsText: string;
 
   constructor(page: Page) {
@@ -17,10 +15,8 @@ export class ProductsPage extends BasePage {
     this.pageTitleMatch = /.*Automation Exercise - All Products/i;
     this.baseURL = `${process.env.BASE_URL}products`;
     this.allProductsText = this.page.locator('body').locator('text=All Products');
-    this.searchProductInput = this.page.getByRole('textbox', { name: 'Search Product' });
     this.searchButton = this.page.getByRole('button', { name: '' });
-    this.continueShoppingButton = this.page.getByRole('button', { name: 'Continue Shopping' });
-    this.viewCartLink = this.page.getByRole('link', { name: 'View Cart' });
+    this.searchProductInput = this.page.getByRole('textbox', { name: 'Search Product' });
     this.searchedProductsText = 'Searched Products';
   }
 
@@ -61,14 +57,6 @@ export class ProductsPage extends BasePage {
 
   async clickFirstProductOnSearchedProducts(): Promise<void> {
     await this.page.locator('.choose > .nav > li > a').first().click();
-  }
-
-  async clickContinueShopping(): Promise<void> {
-    await this.continueShoppingButton.click();
-  }
-
-  async clickViewCart(): Promise<void> {
-    await this.viewCartLink.click();
   }
 
   async addToCart(index = 0): Promise<void> {

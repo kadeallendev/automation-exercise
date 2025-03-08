@@ -4,17 +4,17 @@ import { BasePage } from './base-page';
 export class AccountCreatePage extends BasePage {
   private pageTitleMatch: RegExp;
   private baseURL: string;
+  private accountCreatedMessage: string;
   private accountCreatedText: Locator;
   private continueButton: Locator;
-  private accountCreatedMessage: string;
 
   constructor(page: Page) {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - Account Created/i; // FIXME: Update the title once title is updated
     this.baseURL = `${process.env.BASE_URL}account_created`;
+    this.accountCreatedMessage = 'Account Created!';
     this.accountCreatedText = this.page.locator('b');
     this.continueButton = this.page.getByRole('link', { name: 'Continue' });
-    this.accountCreatedMessage = 'Account Created!';
   }
 
   async navigateTo(): Promise<void> {
