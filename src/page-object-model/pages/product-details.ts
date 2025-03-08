@@ -11,6 +11,12 @@ export class ProductDetailsPage extends BasePage {
   private continueShoppingButton: Locator;
   private viewCartLink: Locator;
   private addToCartButton: Locator;
+  private reviewLink: Locator;
+  private reviewerNameInput: Locator;
+  private reviewerEmailInput: Locator;
+  private reviewTextarea: Locator;
+  private submitReviewButton: Locator;
+  private reviewSubmittedText: string;
 
   constructor(page: Page) {
     super(page);
@@ -22,6 +28,12 @@ export class ProductDetailsPage extends BasePage {
     this.continueShoppingButton = this.page.getByRole('button', { name: 'Continue Shopping' });
     this.viewCartLink = this.page.getByRole('link', { name: 'View Cart' });
     this.addToCartButton = this.page.getByRole('button', { name: ' Add to cart' });
+    this.reviewLink = this.page.getByRole('link', { name: 'Write Your Review' });
+    this.reviewerNameInput = this.page.getByRole('textbox', { name: 'Your Name' });
+    this.reviewerEmailInput = this.page.getByRole('textbox', { name: 'Email Address', exact: true });
+    this.reviewTextarea = this.page.getByRole('textbox', { name: 'Add Review Here!' });
+    this.submitReviewButton = this.page.getByRole('button', { name: 'Submit' });
+    this.reviewSubmittedText = 'Thank you for your review';
   }
 
   async navigateTo(index: number): Promise<void> {
@@ -60,6 +72,30 @@ export class ProductDetailsPage extends BasePage {
 
   async addToCart(): Promise<void> {
     await this.addToCartButton.click();
+  }
+
+  async checkReviewLink(): Promise<void> {
+    await expect(this.reviewLink).toBeVisible();
+  }
+
+  async enterReviewerName(name: string): Promise<void> {
+    await this.reviewerNameInput.fill(name);
+  }
+
+  async enterReviewerEmail(email: string): Promise<void> {
+    await this.reviewerEmailInput.fill(email);
+  }
+
+  async enterReview(review: string): Promise<void> {
+    await this.reviewTextarea.fill(review);
+  }
+
+  async submitReview(): Promise<void> {
+    await this.submitReviewButton.click();
+  }
+
+  async checkReviewSubmitted(): Promise<void> {
+    await expect(this.section).toContainText(this.reviewSubmittedText);
   }
 }
 
