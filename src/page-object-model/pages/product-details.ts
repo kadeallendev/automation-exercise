@@ -6,34 +6,30 @@ export class ProductDetailsPage extends BasePage {
   private pageTitleMatch: RegExp;
   private baseURLPattern: RegExp;
   private baseURL: string;
-  private section: Locator;
-  private quantityInput: Locator;
-  private continueShoppingButton: Locator;
-  private viewCartLink: Locator;
   private addToCartButton: Locator;
+  private quantityInput: Locator;
   private reviewLink: Locator;
-  private reviewerNameInput: Locator;
-  private reviewerEmailInput: Locator;
-  private reviewTextarea: Locator;
-  private submitReviewButton: Locator;
   private reviewSubmittedText: string;
+  private reviewerEmailInput: Locator;
+  private reviewerNameInput: Locator;
+  private reviewTextarea: Locator;
+  private section: Locator;
+  private submitReviewButton: Locator;
 
   constructor(page: Page) {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - Product Details/i;
     this.baseURLPattern = /https:\/\/automationexercise\.com\/product_details\/\d+/i;
     this.baseURL = `${process.env.BASE_URL}product_details/`;
-    this.section = this.page.locator('section');
-    this.quantityInput = this.page.locator('#quantity');
-    this.continueShoppingButton = this.page.getByRole('button', { name: 'Continue Shopping' });
-    this.viewCartLink = this.page.getByRole('link', { name: 'View Cart' });
     this.addToCartButton = this.page.getByRole('button', { name: ' Add to cart' });
+    this.quantityInput = this.page.locator('#quantity');
     this.reviewLink = this.page.getByRole('link', { name: 'Write Your Review' });
-    this.reviewerNameInput = this.page.getByRole('textbox', { name: 'Your Name' });
-    this.reviewerEmailInput = this.page.getByRole('textbox', { name: 'Email Address', exact: true });
-    this.reviewTextarea = this.page.getByRole('textbox', { name: 'Add Review Here!' });
-    this.submitReviewButton = this.page.getByRole('button', { name: 'Submit' });
     this.reviewSubmittedText = 'Thank you for your review';
+    this.reviewerEmailInput = this.page.getByRole('textbox', { name: 'Email Address', exact: true });
+    this.reviewerNameInput = this.page.getByRole('textbox', { name: 'Your Name' });
+    this.reviewTextarea = this.page.getByRole('textbox', { name: 'Add Review Here!' });
+    this.section = this.page.locator('section');
+    this.submitReviewButton = this.page.getByRole('button', { name: 'Submit' });
   }
 
   async navigateTo(index: number): Promise<void> {
@@ -60,14 +56,6 @@ export class ProductDetailsPage extends BasePage {
     const quantity = String(testProduct.product.quantity);
     await this.quantityInput.fill(quantity);
     await expect(this.quantityInput).toHaveValue(quantity);
-  }
-
-  async clickContinueShopping(): Promise<void> {
-    await this.continueShoppingButton.click();
-  }
-
-  async clickViewCart(): Promise<void> {
-    await this.viewCartLink.click();
   }
 
   async addToCart(): Promise<void> {

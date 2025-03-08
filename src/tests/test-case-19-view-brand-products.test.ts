@@ -3,7 +3,7 @@ import { test } from '../fixtures/base-pom';
 
 test.describe('Test Case 19: View Brand Products', () => {
   test('Filter Products based on Brand', async ({ homePage, brandProductsPage }) => {
-    await test.step('Navigate the Test Cases Page', async () => {
+    await test.step('Filter Products', async () => {
       await homePage.landedOn();
       await homePage.filterBrand(ProductData.ProductBrand.Polo);
       await brandProductsPage.landedOn(ProductData.ProductBrand.Polo);

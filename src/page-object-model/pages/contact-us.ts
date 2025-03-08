@@ -4,27 +4,27 @@ import { BasePage } from './base-page';
 export class ContactUsPage extends BasePage {
   private pageTitleMatch: RegExp;
   private baseURL: string;
-  private nameInput: Locator;
   private emailInput: Locator;
-  private subjectInput: Locator;
   private messageTextarea: Locator;
-  private uploadFileInput: Locator;
+  private nameInput: Locator;
+  private subjectInput: Locator;
   private submitButton: Locator;
   private successMessage: Locator;
   private successMessageText: string;
+  private uploadFileInput: Locator;
 
   constructor(page: Page) {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - Contact Us/i;
     this.baseURL = `${process.env.BASE_URL}contact_us`;
-    this.nameInput = this.page.getByRole('textbox', { name: 'Name' });
     this.emailInput = this.page.getByRole('textbox', { name: 'Email', exact: true });
-    this.subjectInput = this.page.getByRole('textbox', { name: 'Subject' });
     this.messageTextarea = this.page.getByRole('textbox', { name: 'Your Message Here' });
-    this.uploadFileInput = this.page.locator('input[name="upload_file"]');
+    this.nameInput = this.page.getByRole('textbox', { name: 'Name' });
+    this.subjectInput = this.page.getByRole('textbox', { name: 'Subject' });
     this.submitButton = this.page.getByRole('button', { name: 'Submit' });
     this.successMessage = this.page.locator('#contact-page');
     this.successMessageText = 'Success! Your details have been submitted successfully.';
+    this.uploadFileInput = this.page.locator('input[name="upload_file"]');
   }
 
   async navigateTo(): Promise<void> {

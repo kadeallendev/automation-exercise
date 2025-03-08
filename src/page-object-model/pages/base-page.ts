@@ -2,46 +2,53 @@ import { type Locator, type Page, expect } from '@playwright/test';
 
 export class BasePage {
   protected page: Page;
-  private signupLoginLink: Locator;
-  private homeLink: Locator;
-  private logoutLink: Locator;
-  private deleteAccountLink: Locator;
-  private contactUsLink: Locator;
-  private testCasesLink: Locator;
-  private productsLink: Locator;
   private cartLink: Locator;
+  private contactUsLink: Locator;
+  private continueShoppingButton: Locator;
+  private deleteAccountLink: Locator;
   private footer: Locator;
-  private subscriptionEmailInput: Locator;
-  private subscriptionButton: Locator;
   private header: Locator;
+  private homeLink: Locator;
   private loggedInMessage: string;
-  private subscriptionText: string;
+  private logoutLink: Locator;
+  private productsLink: Locator;
+  private signupLoginLink: Locator;
+  private subscriptionButton: Locator;
+  private subscriptionEmailInput: Locator;
   private subscriptionSuccessText: string;
+  private subscriptionText: string;
+  private testCasesLink: Locator;
+  private viewCartLink: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.signupLoginLink = this.page.getByRole('link', { name: ' Signup / Login' });
-    this.homeLink = this.page.getByRole('link', { name: ' Home' });
-    this.logoutLink = this.page.getByRole('link', { name: ' Logout' });
-    this.deleteAccountLink = this.page.getByRole('link', { name: ' Delete Account' });
-    this.contactUsLink = this.page.getByRole('link', { name: ' Contact us' });
-    this.testCasesLink = this.page.getByRole('link', { name: ' Test Cases' });
-    this.productsLink = this.page.getByRole('link', { name: ' Products' });
     this.cartLink = this.page.getByRole('link', { name: ' Cart' });
+    this.contactUsLink = this.page.getByRole('link', { name: ' Contact us' });
+    this.continueShoppingButton = this.page.getByRole('button', { name: 'Continue Shopping' });
+    this.deleteAccountLink = this.page.getByRole('link', { name: ' Delete Account' });
     this.footer = this.page.locator('#footer');
-    this.subscriptionEmailInput = this.page.getByRole('textbox', { name: 'Your email address' });
-    this.subscriptionButton = this.page.getByRole('button', { name: '' });
     this.header = this.page.locator('#header');
+    this.homeLink = this.page.getByRole('link', { name: ' Home' });
     this.loggedInMessage = 'Logged in as ';
-    this.subscriptionText = 'Subscription';
+    this.logoutLink = this.page.getByRole('link', { name: ' Logout' });
+    this.productsLink = this.page.getByRole('link', { name: ' Products' });
+    this.signupLoginLink = this.page.getByRole('link', { name: ' Signup / Login' });
+    this.subscriptionButton = this.page.getByRole('button', { name: '' });
+    this.subscriptionEmailInput = this.page.getByRole('textbox', { name: 'Your email address' });
     this.subscriptionSuccessText = 'You have been successfully subscribed!';
+    this.subscriptionText = 'Subscription';
+    this.testCasesLink = this.page.getByRole('link', { name: ' Test Cases' });
+    this.viewCartLink = this.page.getByRole('link', { name: 'View Cart' });
   }
+
   getPage(): Page {
     return this.page;
   }
+
   async clickHome(): Promise<void> {
     await this.homeLink.click();
   }
+
   async clickSignupLogin(): Promise<void> {
     await this.signupLoginLink.click();
   }
@@ -70,6 +77,7 @@ export class BasePage {
   async clickTestCases(): Promise<void> {
     await this.testCasesLink.click();
   }
+
   async clickProducts(): Promise<void> {
     await this.productsLink.click();
   }
@@ -97,6 +105,7 @@ export class BasePage {
   private categoryLocator(category: string): Locator {
     return this.page.getByRole('link', { name: ` ${category}` });
   }
+
   private subCategoryLocator(category: string): Locator {
     return this.page.locator(`#${category}`);
   }
@@ -117,6 +126,14 @@ export class BasePage {
   async filterBrand(brand: string): Promise<void> {
     await expect(this.page.locator('body')).toContainText('Brands');
     await this.brandLocator(brand).click();
+  }
+
+  async clickContinueShopping(): Promise<void> {
+    await this.continueShoppingButton.click();
+  }
+
+  async clickViewCart(): Promise<void> {
+    await this.viewCartLink.click();
   }
 }
 
