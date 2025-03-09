@@ -1,0 +1,43 @@
+- heading "Category" [level=2]
+- heading " Women" [level=4]:
+  - link " Women"
+- heading " Men" [level=4]:
+  - link " Men"
+- heading " Kids" [level=4]:
+  - link " Kids"
+- heading "Brands" [level=2]
+- list:
+  - listitem:
+    - link "(6) Polo"
+  - listitem:
+    - link "(5) H&M"
+  - listitem:
+    - link "(5) Madame"
+  - listitem:
+    - link "(3) Mast & Harbour"
+  - listitem:
+    - link "(4) Babyhug"
+  - listitem:
+    - link "(3) Allen Solly Junior"
+  - listitem:
+    - link "(3) Kookie Kids"
+  - listitem:
+    - link "(5) Biba"
+- img "ecommerce website products"
+- img "ecommerce website products"
+- heading "Blue Top" [level=2]
+- paragraph: "Category: Women > Tops"
+- img "ecommerce website products"
+- text: /Rs\. \d+ Quantity:/
+- spinbutton: "1"
+- button " Add to cart"
+- paragraph: "Availability: In Stock"
+- paragraph: "Condition: New"
+- paragraph: "Brand: Polo"
+- list:
+  - listitem:
+    - link "Write Your Review"
+- textbox "Your Name"
+- textbox "Email Address"
+- textbox "Add Review Here!"
+- button "Submit"

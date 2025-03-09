@@ -120,5 +120,35 @@ export namespace UserData {
     }
     return testUser;
   }
+  export function createStaticUser(): User {
+    const testUser: UserData.User = {
+      gender: 'male',
+      firstName: 'Joe',
+      lastName: 'Snuffy',
+      userName: 'joe.snuffy',
+      email: 'joe.snuffy@mail.com',
+      password: '@ut0m@t3d',
+      birthDate: new Date('1990-04-29'),
+      newsletter: true,
+      offers: true,
+      company: 'Snuffy Industries',
+      address: '123 Main St',
+      address2: 'Suite 123',
+      location: {
+        zip: '19047',
+        city: 'Langhorne',
+        state: 'PA',
+        country: 'US'
+      },
+      mobileNumber: '2155551212',
+      creditCard: {
+        number: '1234567890123456',
+        expiryMonth: '11',
+        expiryYear: '27',
+        ccv: '123'
+      }
+    };
+    return testUser;
+  }
 }
 export default { UserData };

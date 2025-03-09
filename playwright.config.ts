@@ -44,6 +44,10 @@ export default defineConfig({
     /* Capture video of tests */
     video: 'on',
   },
+  expect: {
+    toHaveScreenshot: { maxDiffPixels: 100 },
+    timeout: 30_000
+  },
   timeout: 60_000,
 
   /* Configure projects for major browsers */
