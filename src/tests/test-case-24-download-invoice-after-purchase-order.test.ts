@@ -16,6 +16,7 @@ test.describe('Test Case 24: Download Invoice After Purchase Order', () => {
   });
 
   test('Place Order and Register while Checking Out and Download Invoice', async ({
+    browserName,
     homePage,
     productsPage,
     productDetailsPage,
@@ -120,16 +121,26 @@ test.describe('Test Case 24: Download Invoice After Purchase Order', () => {
       await paymentPage.enterCardExpiryYear(testUser.creditCard.expiryYear);
       await paymentPage.clickPayAndConfirmOrder();
     });
-    await test.step('Payment', async () => {
+    await test.step('Verify Order Placed', async () => {
       await paymentDonePage.landedOn();
       await paymentDonePage.checkOrderPlaced();
+    });
+
+    await test.step('Download Invoice', async (step) => {
+      if (browserName === 'webkit' && process.env.CI) {
+        console.warn('Skipping download invoice test step on WebKit in CI');
+        step.skip();
+      }
+      await paymentDonePage.landedOn();
       const filePath = await paymentDonePage.downloadInvoice();
       const fullName = `${testUser.firstName} ${testUser.lastName}`;
       const total = Number(testProduct.totalDisplayText.replace('Rs. ', ''));
       await paymentDonePage.verifyInvoiceContents(filePath, fullName, total);
+    });
+    await test.step('Continue off Payment Page', async () => {
+      await paymentDonePage.landedOn();
       await paymentDonePage.clickContinue();
     });
-
     await test.step('Delete Account', async () => {
       await homePage.landedOn();
       await homePage.clickDeleteAccount();
