@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test';
 import { test } from '../../fixtures/base-pom';
 
-test.describe('Products Page Visual Regression', () => {
+test.describe('Products Page Visual Regression', { tag: '@visual' }, () => {
   test.beforeAll(async () => {
     test.skip(!!process.env.CI, 'Skipping visual regression test in CI, until snapshots are updated');
   });
@@ -14,7 +14,9 @@ test.describe('Products Page Visual Regression', () => {
       await productsPage.landedOn();
       await expect(productsPage.getPage()).toHaveScreenshot('products-page.png');
     });
-    await test.step('Cleanup Test Data', async () => {
+  });
+  test.afterEach(async ({ homePage }) => {
+    await test.step('Close Page', async () => {
       await homePage.getPage().close();
     });
   });

@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test';
 import { test } from '../../fixtures/base-pom';
 
-test.describe('Home Page ARIA Regression', () => {
+test.describe('Home Page ARIA Regression', { tag: '@aria' }, () => {
   test('Check Home Page', async ({ homePage }) => {
     await test.step('Verify Home Page - Header ARIA Snapshot', async () => {
       await homePage.landedOn();
@@ -16,7 +16,9 @@ test.describe('Home Page ARIA Regression', () => {
     await test.step('Verify Home Page - Footer ARIA Snapshot', async () => {
       await expect(homePage.getPage().locator('#footer')).toMatchAriaSnapshot({ name: 'footer.aria.yml' });
     });
-    await test.step('Cleanup Test Data', async () => {
+  });
+  test.afterEach(async ({ homePage }) => {
+    await test.step('Close Page', async () => {
       await homePage.getPage().close();
     });
   });

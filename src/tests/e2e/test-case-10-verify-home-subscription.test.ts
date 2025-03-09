@@ -3,7 +3,7 @@ import { test } from '../../fixtures/base-pom';
 
 let testUser: UserData.User;
 
-test.describe('Test Case 10: Verify Subscription on Home Page', () => {
+test.describe('Test Case 10: Verify Subscription on Home Page', { tag: ['@e2e', '@TC-10'] }, () => {
   test.beforeEach(async () => {
     await test.step('Setup Test Data', async () => {
       testUser = UserData.createUser();
@@ -17,7 +17,14 @@ test.describe('Test Case 10: Verify Subscription on Home Page', () => {
       await homePage.submitSubscription();
       await homePage.checkSubscriptionSuccess();
     });
-    await test.step('Cleanup Test Data', async () => {
+  });
+  test.afterEach(async ({ homePage }) => {
+    await test.step('Delete User if Logged In', async () => {
+      if (await homePage.isUserLoggedIn()) {
+        await homePage.clickDeleteAccount();
+      }
+    });
+    await test.step('Close Page', async () => {
       await homePage.getPage().close();
     });
   });

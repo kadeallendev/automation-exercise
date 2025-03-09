@@ -4,7 +4,7 @@ import { test } from '../../fixtures/base-pom';
 
 let testProduct: ProductData.ProductData;
 
-test.describe('Product Details Page Visual Regression', () => {
+test.describe('Product Details Page Visual Regression', { tag: '@aria' }, () => {
   test.beforeEach(async () => {
     await test.step('Setup Test Data', async () => {
       const product = ProductData.getProductByName(ProductData.ProductName.BlueTop);
@@ -30,7 +30,9 @@ test.describe('Product Details Page Visual Regression', () => {
     await test.step('Verify Product Details Page - Footer ARIA Snapshot', async () => {
       await expect(productDetailsPage.getPage().locator('#footer')).toMatchAriaSnapshot({ name: 'footer.aria.yml' });
     });
-    await test.step('Cleanup Test Data', async () => {
+  });
+  test.afterEach(async ({ homePage }) => {
+    await test.step('Close Page', async () => {
       await homePage.getPage().close();
     });
   });

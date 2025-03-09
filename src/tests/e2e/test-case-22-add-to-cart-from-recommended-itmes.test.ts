@@ -3,7 +3,7 @@ import { test } from '../../fixtures/base-pom';
 
 let testProduct: ProductData.ProductData;
 
-test.describe('Test Case 22: Add to Cart from Recommended Items', () => {
+test.describe('Test Case 22: Add to Cart from Recommended Items', { tag: ['@e2e', '@TC-22'] }, () => {
   test.beforeEach(async () => {
     await test.step('Setup Test Data', async () => {
       const product = ProductData.getProductByName(ProductData.ProductName.BlueTop);
@@ -25,7 +25,9 @@ test.describe('Test Case 22: Add to Cart from Recommended Items', () => {
       await viewCartPage.landedOn();
       await viewCartPage.checkProductDetailInCart(testProduct);
     });
-    await test.step('Cleanup Test Data', async () => {
+  });
+  test.afterEach(async ({ homePage }) => {
+    await test.step('Close Page', async () => {
       await homePage.getPage().close();
     });
   });

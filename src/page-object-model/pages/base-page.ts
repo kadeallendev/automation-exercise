@@ -57,6 +57,9 @@ export class BasePage {
     await expect(this.logoutLink).toBeVisible();
     await expect(this.header).toContainText(`${this.loggedInMessage}${userName}`);
   }
+  async isUserLoggedIn(): Promise<boolean> {
+    return await this.logoutLink.isVisible();
+  }
 
   async checkUserLoggedOut(): Promise<void> {
     await expect(this.header).not.toContainText(this.loggedInMessage);

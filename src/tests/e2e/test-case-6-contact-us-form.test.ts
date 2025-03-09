@@ -4,7 +4,7 @@ import { test } from '../../fixtures/base-pom';
 
 let testUser: UserData.User;
 
-test.describe('Test Case 6: Contact Us Form', () => {
+test.describe('Test Case 6: Contact Us Form', { tag: ['@e2e', '@TC-6'] }, () => {
   test.beforeEach(async () => {
     await test.step('Setup Test Data', async () => {
       testUser = UserData.createUser();
@@ -14,7 +14,14 @@ test.describe('Test Case 6: Contact Us Form', () => {
     await test.step('Execute Contact Us Workflow', async () => {
       await FeedbackWorkflow.SubmitFeedback(homePage, contactUsPage, testUser);
     });
-    await test.step('Cleanup Test Data', async () => {
+  });
+  test.afterEach(async ({ homePage }) => {
+    await test.step('Delete User if Logged In', async () => {
+      if (await homePage.isUserLoggedIn()) {
+        await homePage.clickDeleteAccount();
+      }
+    });
+    await test.step('Close Page', async () => {
       await homePage.getPage().close();
     });
   });

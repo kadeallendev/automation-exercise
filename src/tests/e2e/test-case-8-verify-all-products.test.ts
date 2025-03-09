@@ -3,7 +3,7 @@ import { test } from '../../fixtures/base-pom';
 
 let testProduct: ProductData.ProductData;
 
-test.describe('Test Case 8: Verify All Products and product detail page', () => {
+test.describe('Test Case 8: Verify All Products and product detail page', { tag: ['@e2e', '@TC-8'] }, () => {
   test.beforeEach(async () => {
     await test.step('Setup Test Data', async () => {
       const product = ProductData.getProductByName(ProductData.ProductName.BlueTop);
@@ -28,7 +28,9 @@ test.describe('Test Case 8: Verify All Products and product detail page', () => 
       await productsPage.landedOn();
       await productsPage.checkAllProductsForProduct(testProduct);
     });
-    await test.step('Cleanup Test Data', async () => {
+  });
+  test.afterEach(async ({ homePage }) => {
+    await test.step('Close Page', async () => {
       await homePage.getPage().close();
     });
   });

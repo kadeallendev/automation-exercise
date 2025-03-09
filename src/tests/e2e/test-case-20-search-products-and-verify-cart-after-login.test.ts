@@ -6,7 +6,7 @@ import { test } from '../../fixtures/base-pom';
 let testUser: UserData.User;
 let testProduct: ProductData.ProductData;
 
-test.describe('Test Case 20: Search Products and Verify Cart After Login', () => {
+test.describe('Test Case 20: Search Products and Verify Cart After Login', { tag: ['@e2e', '@TC-20'] }, () => {
   test.beforeEach(async () => {
     await test.step('Setup Test Data', async () => {
       testUser = UserData.createUser();
@@ -21,8 +21,7 @@ test.describe('Test Case 20: Search Products and Verify Cart After Login', () =>
     viewCartPage,
     loginPage,
     signUpPage,
-    accountCreatePage,
-    deleteAccountPage
+    accountCreatePage
   }) => {
     await test.step('Execute Register User Workflow', async () => {
       await AccountWorkflow.RegisterUser(homePage, loginPage, signUpPage, accountCreatePage, testUser);
@@ -85,17 +84,14 @@ test.describe('Test Case 20: Search Products and Verify Cart After Login', () =>
       await viewCartPage.checkProductDetailInCart(testProduct);
       await viewCartPage.clickHome();
     });
-
-    await test.step('Delete Account', async () => {
-      await homePage.landedOn();
-      await homePage.clickDeleteAccount();
-      await deleteAccountPage.landedOn();
-      await deleteAccountPage.checkAccountDeleted();
-      await deleteAccountPage.clickContinue();
-      await homePage.landedOn();
-      await homePage.checkUserLoggedOut();
+  });
+  test.afterEach(async ({ homePage }) => {
+    await test.step('Delete User if Logged In', async () => {
+      if (await homePage.isUserLoggedIn()) {
+        await homePage.clickDeleteAccount();
+      }
     });
-    await test.step('Cleanup Test Data', async () => {
+    await test.step('Close Page', async () => {
       await homePage.getPage().close();
     });
   });
