@@ -1,3 +1,5 @@
+import * as fs from 'node:fs';
+import path from 'node:path';
 import { type Locator, type Page, expect } from '@playwright/test';
 import { BasePage } from './base-page';
 
@@ -7,6 +9,7 @@ export class PaymentDonePage extends BasePage {
   private baseURL: string;
   private congratulationsText: Locator;
   private continueButton: Locator;
+  private downloadInvoiceLink: Locator;
   private orderPlacedText: Locator;
 
   constructor(page: Page) {
@@ -16,6 +19,7 @@ export class PaymentDonePage extends BasePage {
     this.baseURL = `${process.env.BASE_URL}payment_done`;
     this.congratulationsText = this.page.getByText('Congratulations! Your order');
     this.continueButton = this.page.getByRole('link', { name: 'Continue' });
+    this.downloadInvoiceLink = this.page.getByRole('link', { name: 'Download Invoice' });
     this.orderPlacedText = this.page.getByText('Order Placed!');
   }
 
@@ -37,6 +41,24 @@ export class PaymentDonePage extends BasePage {
 
   async clickContinue(): Promise<void> {
     await this.continueButton.click();
+  }
+  async downloadInvoice(): Promise<string> {
+    const downloadPromise = this.page.waitForEvent('download');
+    await this.downloadInvoiceLink.click();
+    const download = await downloadPromise;
+    const downloadPath = path.join('./test-results', download.suggestedFilename());
+    await download.saveAs(downloadPath);
+    return downloadPath;
+  }
+  async verifyInvoiceContents(filePath: string, name: string, amount: number): Promise<boolean> {
+    try {
+      const fileContents = fs.readFileSync(filePath, 'utf8');
+      const expectedContents = `Hi ${name}, Your total purchase amount is ${amount}. Thank you`;
+      return fileContents.trim() === expectedContents;
+    } catch (error) {
+      console.error('Error reading the file:', error);
+      return false;
+    }
   }
 }
 
