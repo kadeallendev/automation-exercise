@@ -6,7 +6,7 @@ import { test } from '../../fixtures/base-pom';
 let testUser: UserData.User;
 let testProduct: ProductData.ProductData;
 
-test.describe('Test Case 21: Add Review on Product', () => {
+test.describe('Test Case 21: Add Review on Product', { tag: ['@e2e', '@TC-21'] }, () => {
   test.beforeEach(async () => {
     await test.step('Setup Test Data', async () => {
       testUser = UserData.createUser();
@@ -38,8 +38,14 @@ test.describe('Test Case 21: Add Review on Product', () => {
       await productDetailsPage.submitReview();
       await productDetailsPage.checkReviewSubmitted();
     });
-
-    await test.step('Cleanup Test Data', async () => {
+  });
+  test.afterEach(async ({ homePage }) => {
+    await test.step('Delete User if Logged In', async () => {
+      if (await homePage.isUserLoggedIn()) {
+        await homePage.clickDeleteAccount();
+      }
+    });
+    await test.step('Close Page', async () => {
       await homePage.getPage().close();
     });
   });

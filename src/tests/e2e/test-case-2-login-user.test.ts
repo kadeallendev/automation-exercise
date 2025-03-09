@@ -4,7 +4,7 @@ import { test } from '../../fixtures/base-pom';
 
 let testUser: UserData.User;
 
-test.describe('Test Case 2: Login User with correct email and password', () => {
+test.describe('Test Case 2: Login User with correct email and password', { tag: ['@e2e', '@TC-2'] }, () => {
   test.beforeEach(async () => {
     await test.step('Setup Test Data', async () => {
       testUser = UserData.createUser();
@@ -26,7 +26,14 @@ test.describe('Test Case 2: Login User with correct email and password', () => {
     await test.step('Execute Delete Logged In User Workflow', async () => {
       await AccountWorkflow.DeleteLoggedInUser(homePage, deleteAccountPage);
     });
-    await test.step('Cleanup Test Data', async () => {
+  });
+  test.afterEach(async ({ homePage }) => {
+    await test.step('Delete User if Logged In', async () => {
+      if (await homePage.isUserLoggedIn()) {
+        await homePage.clickDeleteAccount();
+      }
+    });
+    await test.step('Close Page', async () => {
       await homePage.getPage().close();
     });
   });

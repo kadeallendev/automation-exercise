@@ -6,7 +6,7 @@ import { test } from '../../fixtures/base-pom';
 let testUser: UserData.User;
 let testProduct: ProductData.ProductData;
 
-test.describe('Test Case 24: Download Invoice After Purchase Order', () => {
+test.describe('Test Case 24: Download Invoice After Purchase Order', { tag: ['@e2e', '@TC-24'] }, () => {
   test.beforeEach(async () => {
     await test.step('Setup Test Data', async () => {
       testUser = UserData.createUser();
@@ -26,8 +26,7 @@ test.describe('Test Case 24: Download Invoice After Purchase Order', () => {
     accountCreatePage,
     checkoutPage,
     paymentPage,
-    paymentDonePage,
-    deleteAccountPage
+    paymentDonePage
   }) => {
     await test.step('Navigate to All Products', async () => {
       await homePage.landedOn();
@@ -141,16 +140,14 @@ test.describe('Test Case 24: Download Invoice After Purchase Order', () => {
       await paymentDonePage.landedOn();
       await paymentDonePage.clickContinue();
     });
-    await test.step('Delete Account', async () => {
-      await homePage.landedOn();
-      await homePage.clickDeleteAccount();
-      await deleteAccountPage.landedOn();
-      await deleteAccountPage.checkAccountDeleted();
-      await deleteAccountPage.clickContinue();
-      await homePage.landedOn();
-      await homePage.checkUserLoggedOut();
+  });
+  test.afterEach(async ({ homePage }) => {
+    await test.step('Delete User if Logged In', async () => {
+      if (await homePage.isUserLoggedIn()) {
+        await homePage.clickDeleteAccount();
+      }
     });
-    await test.step('Cleanup Test Data', async () => {
+    await test.step('Close Page', async () => {
       await homePage.getPage().close();
     });
   });

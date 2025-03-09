@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test';
 import { test } from '../../fixtures/base-pom';
 
-test.describe('Products ARIA Regression', () => {
+test.describe('Products ARIA Regression', { tag: '@aria' }, () => {
   test('Check Products Page', async ({ homePage, productsPage }) => {
     await test.step('Navigate to Products', async () => {
       await homePage.landedOn();
@@ -20,7 +20,9 @@ test.describe('Products ARIA Regression', () => {
     await test.step('Verify Products Page - Footer ARIA Snapshot', async () => {
       await expect(productsPage.getPage().locator('#footer')).toMatchAriaSnapshot({ name: 'footer.aria.yml' });
     });
-    await test.step('Cleanup Test Data', async () => {
+  });
+  test.afterEach(async ({ homePage }) => {
+    await test.step('Close Page', async () => {
       await homePage.getPage().close();
     });
   });

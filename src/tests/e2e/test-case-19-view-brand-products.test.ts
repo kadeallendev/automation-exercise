@@ -1,7 +1,7 @@
 import { ProductData } from 'page-object-model/data/product-data';
 import { test } from '../../fixtures/base-pom';
 
-test.describe('Test Case 19: View Brand Products', () => {
+test.describe('Test Case 19: View Brand Products', { tag: ['@e2e', '@TC-19'] }, () => {
   test('Filter Products based on Brand', async ({ homePage, brandProductsPage }) => {
     await test.step('Filter Products', async () => {
       await homePage.landedOn();
@@ -14,7 +14,9 @@ test.describe('Test Case 19: View Brand Products', () => {
       await brandProductsPage.checkBrandBanner(ProductData.ProductBrand.Madame);
       await brandProductsPage.clickHome();
     });
-    await test.step('Cleanup Test Data', async () => {
+  });
+  test.afterEach(async ({ homePage }) => {
+    await test.step('Close Page', async () => {
       await homePage.getPage().close();
     });
   });

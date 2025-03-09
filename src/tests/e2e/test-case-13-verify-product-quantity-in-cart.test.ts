@@ -3,7 +3,7 @@ import { test } from '../../fixtures/base-pom';
 
 let testProduct: ProductData.ProductData;
 
-test.describe('Test Case 13: Verify Product Quantity correct in Cart page', () => {
+test.describe('Test Case 13: Verify Product Quantity correct in Cart page', { tag: ['@e2e', '@TC-13'] }, () => {
   test.beforeEach(async () => {
     await test.step('Setup Test Data', async () => {
       const product = ProductData.getProductByName(ProductData.ProductName.StylishDress);
@@ -45,7 +45,9 @@ test.describe('Test Case 13: Verify Product Quantity correct in Cart page', () =
       await viewCartPage.clickHome();
       await homePage.landedOn();
     });
-    await test.step('Cleanup Test Data', async () => {
+  });
+  test.afterEach(async ({ homePage }) => {
+    await test.step('Close Page', async () => {
       await homePage.getPage().close();
     });
   });

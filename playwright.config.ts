@@ -42,7 +42,7 @@ export default defineConfig({
     trace: 'retain-on-first-failure',
 
     /* Capture video of tests */
-    video: 'on',
+    video: 'retain-on-failure',
   },
   expect: {
     toHaveScreenshot: { maxDiffPixels: 100 },

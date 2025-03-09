@@ -4,13 +4,13 @@ import { test } from '../../fixtures/base-pom';
 
 let testUser: UserData.User;
 
-test.describe('Test Case 5: Register User with existing email', () => {
+test.describe('Test Case 5: Register User with existing email', { tag: ['@e2e', '@TC-5'] }, () => {
   test.beforeEach(async () => {
     await test.step('Setup Test Data', async () => {
       testUser = UserData.createUser();
     });
   });
-  test('Register User, Log Out, Re-Register User Then Log In User to Delete', async ({ homePage, loginPage, signUpPage, accountCreatePage, deleteAccountPage }) => {
+  test('Register User, Log Out, Re-Register User Then Log In User to Delete', async ({ homePage, loginPage, signUpPage, accountCreatePage }) => {
     await test.step('Execute Register User Workflow', async () => {
       await AccountWorkflow.RegisterUser(homePage, loginPage, signUpPage, accountCreatePage, testUser);
     });
@@ -26,11 +26,14 @@ test.describe('Test Case 5: Register User with existing email', () => {
     await test.step('Execute Log In User Workflow', async () => {
       await AccountWorkflow.LogIn(homePage, loginPage, testUser);
     });
-
-    await test.step('Execute Delete Logged In User Workflow', async () => {
-      await AccountWorkflow.DeleteLoggedInUser(homePage, deleteAccountPage);
+  });
+  test.afterEach(async ({ homePage }) => {
+    await test.step('Delete User if Logged In', async () => {
+      if (await homePage.isUserLoggedIn()) {
+        await homePage.clickDeleteAccount();
+      }
     });
-    await test.step('Cleanup Test Data', async () => {
+    await test.step('Close Page', async () => {
       await homePage.getPage().close();
     });
   });

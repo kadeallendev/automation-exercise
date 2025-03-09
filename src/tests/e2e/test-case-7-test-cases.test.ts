@@ -1,6 +1,6 @@
 import { test } from '../../fixtures/base-pom';
 
-test.describe('Test Case 7: Test Cases Page', () => {
+test.describe('Test Case 7: Test Cases Page', { tag: ['@e2e', '@TC-7'] }, () => {
   test('Navigation to the Test Cases Page', async ({ homePage, testCasesPage }) => {
     await test.step('Navigate the Test Cases Page', async () => {
       await homePage.landedOn();
@@ -9,7 +9,9 @@ test.describe('Test Case 7: Test Cases Page', () => {
       await testCasesPage.clickHome();
       await homePage.landedOn();
     });
-    await test.step('Cleanup Test Data', async () => {
+  });
+  test.afterEach(async ({ homePage }) => {
+    await test.step('Close Page', async () => {
       await homePage.getPage().close();
     });
   });

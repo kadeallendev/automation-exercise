@@ -4,7 +4,7 @@ import { test } from '../../fixtures/base-pom';
 
 let testProduct: ProductData.ProductData;
 
-test.describe('Product Details Page Visual Regression', () => {
+test.describe('Product Details Page Visual Regression', { tag: '@visual' }, () => {
   test.beforeAll(async () => {
     test.skip(!!process.env.CI, 'Skipping visual regression test in CI, until snapshots are updated');
   });
@@ -27,7 +27,9 @@ test.describe('Product Details Page Visual Regression', () => {
       await productDetailsPage.landedOn();
       await expect(productDetailsPage.getPage()).toHaveScreenshot('product-details-page.png');
     });
-    await test.step('Cleanup Test Data', async () => {
+  });
+  test.afterEach(async ({ homePage }) => {
+    await test.step('Close Page', async () => {
       await homePage.getPage().close();
     });
   });
