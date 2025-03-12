@@ -37,6 +37,32 @@ class BaseAPI {
       throw new Error(`GET request failed: ${error}`);
     }
   }
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  protected async post(url: string, data: any): Promise<APIResponse> {
+    try {
+      const fullURL = `${this.baseURL}${url.startsWith('/') ? '' : '/'}${url}`;
+      const response = await this.requestContext.post(fullURL, { data });
+      if (!response.ok()) {
+        throw new Error(`POST request failed: ${response.status()} ${response.statusText()}`);
+      }
+      return response;
+    } catch (error) {
+      throw new Error(`POST request failed: ${error}`);
+    }
+  }
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  protected async put(url: string, data: any): Promise<APIResponse> {
+    try {
+      const fullURL = `${this.baseURL}${url.startsWith('/') ? '' : '/'}${url}`;
+      const response = await this.requestContext.put(fullURL, { data });
+      if (!response.ok()) {
+        throw new Error(`PUT request failed: ${response.status()} ${response.statusText()}`);
+      }
+      return response;
+    } catch (error) {
+      throw new Error(`PUT request failed: ${error}`);
+    }
+  }
 }
 
 export default BaseAPI;
