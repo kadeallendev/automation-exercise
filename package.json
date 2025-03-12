@@ -7,6 +7,7 @@
     "test:all": "npx playwright test",
     "test:regress": "npx playwright test --grep-invert \"@flaky\"",
     "test:flaky": "npx playwright test --grep \"@flaky\" --max-failures 0 --retries 0",
+    "test:api": "npx playwright test --grep \"@api\"",
     "test:aria": "npx playwright test --grep \"@aria\"",
     "test:e2e": "npx playwright test --grep \"@e2e\"",
     "test:visual": "npx playwright test --grep \"@visual\"",

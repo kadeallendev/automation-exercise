@@ -31,7 +31,7 @@ export default defineConfig({
     viewport: { width: 1920, height: 1080 },
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: process.env.BASE_URL || 'https://automationexercise.com/',
-
+    extraHTTPHeaders: { 'Content-Type': 'application/x-www-form-urlencoded' },
     /* Capture Screenshots of tests */
     screenshot: {
           mode: 'only-on-failure',
