@@ -3,7 +3,7 @@ import { test } from '../../fixtures/base-pom';
 
 let testProduct: ProductData.ProductData;
 
-test.describe('Test Case 9: Search Product', { tag: ['@e2e', '@TC-9'] }, () => {
+test.describe('Test Case 9: Search Product', { tag: ['@e2e', '@TC-09'] }, () => {
   test.beforeEach(async () => {
     await test.step('Setup Test Data', async () => {
       const product = ProductData.getProductByName(ProductData.ProductName.SleevelessDress);

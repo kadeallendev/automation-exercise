@@ -1,6 +1,6 @@
 import { test } from '../../fixtures/base-pom';
 
-test.describe('Test Case 7: Test Cases Page', { tag: ['@e2e', '@TC-7'] }, () => {
+test.describe('Test Case 7: Test Cases Page', { tag: ['@e2e', '@TC-07'] }, () => {
   test('Navigation to the Test Cases Page', async ({ homePage, testCasesPage }) => {
     await test.step('Navigate the Test Cases Page', async () => {
       await homePage.landedOn();

@@ -8,7 +8,9 @@ class BrandsListHelper extends BaseAPI {
   }
 
   public async getAllBrands(): Promise<APIResponse> {
-    return this.get('brandsList');
+    return this.get('brandsList', {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    });
   }
 }
 

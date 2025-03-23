@@ -1,6 +1,6 @@
 import { test as base } from '@playwright/test';
 import { AccountCreatePage } from 'page-object-model/pages/account-created';
-import { BrandProductsPage } from 'page-object-model/pages/brand_products';
+import { BrandProductsPage } from 'page-object-model/pages/brand-products';
 import { CheckoutPage } from 'page-object-model/pages/checkout';
 import { blockAds } from 'page-object-model/pages/common';
 import { ContactUsPage } from 'page-object-model/pages/contact-us';
@@ -8,7 +8,7 @@ import { DeleteAccountPage } from 'page-object-model/pages/delete-account';
 import { HomePage } from 'page-object-model/pages/home';
 import { LoginPage } from 'page-object-model/pages/login';
 import { PaymentPage } from 'page-object-model/pages/payment';
-import { PaymentDonePage } from 'page-object-model/pages/payment_done';
+import { PaymentDonePage } from 'page-object-model/pages/payment-done';
 import { ProductDetailsPage } from 'page-object-model/pages/product-details';
 import { ProductsPage } from 'page-object-model/pages/products';
 import { SignUpPage } from 'page-object-model/pages/signup';
