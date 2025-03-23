@@ -4,7 +4,7 @@ import { test } from '../../fixtures/base-pom';
 
 let testUser: UserData.User;
 
-test.describe('Test Case 5: Register User with existing email', { tag: ['@e2e', '@TC-5'] }, () => {
+test.describe('Test Case 5: Register User with existing email', { tag: ['@e2e', '@TC-05'] }, () => {
   test.beforeEach(async () => {
     await test.step('Setup Test Data', async () => {
       testUser = UserData.createUser();

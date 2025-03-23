@@ -24,11 +24,11 @@ class BaseAPI {
   private static getHeadersFromConfig(): Record<string, string> {
     return test.info().project.use.extraHTTPHeaders || {};
   }
-
-  protected async get(url: string): Promise<APIResponse> {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  protected async get(url: string, data: any): Promise<APIResponse> {
     try {
       const fullURL = `${this.baseURL}${url.startsWith('/') ? '' : '/'}${url}`;
-      const response = await this.requestContext.get(fullURL);
+      const response = await this.requestContext.get(fullURL, data);
       if (!response.ok()) {
         throw new Error(`GET request failed: ${response.status()} ${response.statusText()}`);
       }
@@ -38,10 +38,23 @@ class BaseAPI {
     }
   }
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  protected async delete(url: string, data: any): Promise<APIResponse> {
+    try {
+      const fullURL = `${this.baseURL}${url.startsWith('/') ? '' : '/'}${url}`;
+      const response = await this.requestContext.delete(fullURL, data);
+      if (!response.ok()) {
+        throw new Error(`DELETE request failed: ${response.status()} ${response.statusText()}`);
+      }
+      return response;
+    } catch (error) {
+      throw new Error(`DELETE request failed: ${error}`);
+    }
+  }
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   protected async post(url: string, data: any): Promise<APIResponse> {
     try {
       const fullURL = `${this.baseURL}${url.startsWith('/') ? '' : '/'}${url}`;
-      const response = await this.requestContext.post(fullURL, { data });
+      const response = await this.requestContext.post(fullURL, data);
       if (!response.ok()) {
         throw new Error(`POST request failed: ${response.status()} ${response.statusText()}`);
       }
@@ -54,7 +67,7 @@ class BaseAPI {
   protected async put(url: string, data: any): Promise<APIResponse> {
     try {
       const fullURL = `${this.baseURL}${url.startsWith('/') ? '' : '/'}${url}`;
-      const response = await this.requestContext.put(fullURL, { data });
+      const response = await this.requestContext.put(fullURL, data);
       if (!response.ok()) {
         throw new Error(`PUT request failed: ${response.status()} ${response.statusText()}`);
       }

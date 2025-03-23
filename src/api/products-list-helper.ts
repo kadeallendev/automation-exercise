@@ -8,7 +8,9 @@ class ProductsListHelper extends BaseAPI {
   }
 
   public async getAllProducts(): Promise<APIResponse> {
-    return this.get('productsList');
+    return this.get('productsList', {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    });
   }
 }
 

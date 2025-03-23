@@ -7,8 +7,13 @@ class SearchProductHelper extends BaseAPI {
     return Object.assign(new SearchProductHelper(), baseAPI);
   }
 
-  public async searchForProduct(criteria: string): Promise<APIResponse> {
-    return this.post('searchProduct', { criteria });
+  public async searchForProduct(searchProduct: string): Promise<APIResponse> {
+    const data = [`search_product=${encodeURIComponent(searchProduct)}`].join('&');
+    const response = await this.post('searchProduct', {
+      data: data,
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    });
+    return response;
   }
 }
 

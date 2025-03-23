@@ -4,7 +4,7 @@ import { test } from '../../fixtures/base-pom';
 
 let testUser: UserData.User;
 
-test.describe('Test Case 4: Logout User', { tag: ['@e2e', '@TC-4'] }, () => {
+test.describe('Test Case 4: Logout User', { tag: ['@e2e', '@TC-04'] }, () => {
   test.beforeEach(async () => {
     await test.step('Setup Test Data', async () => {
       testUser = UserData.createUser();
