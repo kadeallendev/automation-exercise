@@ -1,4 +1,4 @@
-import { test } from '../../fixtures/base-pom';
+import { test } from '../../fixtures/base-pom-fixture';
 
 test.describe('Test Case 7: Test Cases Page', { tag: ['@e2e', '@TC-07'] }, () => {
   test('Navigation to the Test Cases Page', async ({ homePage, testCasesPage }) => {

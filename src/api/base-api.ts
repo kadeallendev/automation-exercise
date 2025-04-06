@@ -1,6 +1,6 @@
 import test, { request, type APIRequestContext, type APIResponse } from '@playwright/test';
 
-class BaseAPI {
+export class BaseAPI {
   protected requestContext!: APIRequestContext;
   private baseURL!: string;
 

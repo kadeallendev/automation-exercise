@@ -96,7 +96,7 @@ export namespace AccountWorkflow {
       await loginPage.enterPassword(testUser.password);
       await loginPage.clickLogin();
       await homePage.landedOn();
-      await homePage.checkUserLoggedIn(testUser.userName);
+      await homePage.checkUserLoggedIn(testUser.displayName);
     });
   }
   export async function IncorrectLogIn(homePage: HomePage, loginPage: LoginPage, testUser: UserData.User) {

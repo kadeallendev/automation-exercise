@@ -2,7 +2,7 @@ import type { APIResponse } from '@playwright/test';
 import type { UserData } from 'page-object-model/data/user-data';
 import BaseAPI from './base-api';
 
-class CreateAccountHelper extends BaseAPI {
+export class CreateAccountHelper extends BaseAPI {
   public static async create(): Promise<CreateAccountHelper> {
     const baseAPI = await BaseAPI.create(`${process.env.BASE_URL}/api`);
     return Object.assign(new CreateAccountHelper(), baseAPI);

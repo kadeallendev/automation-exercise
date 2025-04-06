@@ -1,5 +1,5 @@
 import { ProductData } from 'page-object-model/data/product-data';
-import { test } from '../../fixtures/base-pom';
+import { test } from '../../fixtures/base-pom-fixture';
 
 test.describe('Test Case 19: View Brand Products', { tag: ['@e2e', '@TC-19'] }, () => {
   test('Filter Products based on Brand', async ({ homePage, brandProductsPage }) => {

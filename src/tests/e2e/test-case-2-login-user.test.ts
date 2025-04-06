@@ -1,37 +1,33 @@
-import { UserData } from 'page-object-model/data/user-data';
+import type { UserData } from 'page-object-model/data/user-data';
 import { AccountWorkflow } from 'page-object-model/workflows/account-workflow';
-import { test } from '../../fixtures/base-pom';
+import type { CreateAccountHelper } from '../../api/create-account-helper';
+import type { DeleteAccountHelper } from '../../api/delete-account-helper';
+import type { VerifyLoginHelper } from '../../api/verify-login-helper';
+import { test as baseTest } from '../../fixtures/base-pom-fixture';
+import { setupUser, teardownUser, userFixtures } from '../../fixtures/user-management-fixture';
 
-let testUser: UserData.User;
+// Extend the base test with user management fixture
+const test = baseTest.extend<{
+  testUser: UserData.User;
+  verifyLoginHelper: VerifyLoginHelper;
+  createAccountHelper: CreateAccountHelper;
+  deleteAccountHelper: DeleteAccountHelper;
+}>(userFixtures);
 
 test.describe('Test Case 2: Login User with correct email and password', { tag: ['@e2e', '@TC-02'] }, () => {
-  test.beforeEach(async () => {
-    await test.step('Setup Test Data', async () => {
-      testUser = UserData.createUser();
+  test.beforeEach(async ({ verifyLoginHelper, createAccountHelper, testUser }) => {
+    await test.step('Register User via API', async () => {
+      await setupUser(verifyLoginHelper, createAccountHelper, testUser);
     });
   });
-  test('Register User, Log Out Then Log In User to Delete', async ({ homePage, loginPage, signUpPage, accountCreatePage, deleteAccountPage }) => {
-    await test.step('Execute Register User Workflow', async () => {
-      await AccountWorkflow.RegisterUser(homePage, loginPage, signUpPage, accountCreatePage, testUser);
-    });
-
-    await test.step('Execute Log Out User Workflow', async () => {
-      await AccountWorkflow.LogOut(homePage, loginPage, testUser);
-    });
-
+  test('Log In User', async ({ homePage, loginPage, testUser }) => {
     await test.step('Execute Log In User Workflow', async () => {
       await AccountWorkflow.LogIn(homePage, loginPage, testUser);
     });
-
-    await test.step('Execute Delete Logged In User Workflow', async () => {
-      await AccountWorkflow.DeleteLoggedInUser(homePage, deleteAccountPage);
-    });
   });
-  test.afterEach(async ({ homePage }) => {
-    await test.step('Delete User if Logged In', async () => {
-      if (await homePage.isUserLoggedIn()) {
-        await homePage.clickDeleteAccount();
-      }
+  test.afterEach(async ({ verifyLoginHelper, deleteAccountHelper, testUser, homePage }) => {
+    await test.step('Delete User via API if exists', async () => {
+      await teardownUser(verifyLoginHelper, deleteAccountHelper, testUser);
     });
     await test.step('Close Page', async () => {
       await homePage.getPage().close();

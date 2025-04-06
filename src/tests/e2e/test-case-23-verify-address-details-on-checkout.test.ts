@@ -1,7 +1,7 @@
 import { ProductData } from 'page-object-model/data/product-data';
 import { UserData } from 'page-object-model/data/user-data';
 import { AccountWorkflow } from 'page-object-model/workflows/account-workflow';
-import { test } from '../../fixtures/base-pom';
+import { test } from '../../fixtures/base-pom-fixture';
 
 let testUser: UserData.User;
 let testProduct: ProductData.ProductData;

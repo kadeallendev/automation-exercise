@@ -17,6 +17,7 @@ export namespace UserData {
     gender: string;
     firstName: string;
     lastName: string;
+    displayName: string;
     userName: string;
     email: string;
     password: string;
@@ -69,6 +70,7 @@ export namespace UserData {
       gender: '',
       firstName: '',
       lastName: '',
+      displayName: '',
       userName: '',
       email: '',
       password: '',
@@ -99,6 +101,7 @@ export namespace UserData {
     testUser.gender = gender;
     testUser.firstName = randFirstName({ gender: gender as 'male' | 'female' | undefined, withAccents: false });
     testUser.lastName = randLastName({ withAccents: false });
+    testUser.displayName = `${testUser.firstName} ${testUser.lastName}`;
     testUser.userName = `${testUser.firstName}.${testUser.lastName}`.toLowerCase();
     testUser.email = randEmail({ firstName: testUser.firstName, lastName: testUser.lastName, nameSeparator: '.', provider: 'test-email', suffix: 'com' });
     testUser.password = process.env.GLOBAL_PASSWORD as string;
@@ -125,6 +128,7 @@ export namespace UserData {
       gender: 'male',
       firstName: 'Joe',
       lastName: 'Snuffy',
+      displayName: 'Joe Snuffy',
       userName: 'joe.snuffy',
       email: 'joe.snuffy@mail.com',
       password: '@ut0m@t3d',

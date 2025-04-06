@@ -1,6 +1,6 @@
 import { UserData } from 'page-object-model/data/user-data';
 import { FeedbackWorkflow } from 'page-object-model/workflows/feedback-workflow';
-import { test } from '../../fixtures/base-pom';
+import { test } from '../../fixtures/base-pom-fixture';
 
 let testUser: UserData.User;
 

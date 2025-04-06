@@ -1,4 +1,4 @@
-import { test } from '../../fixtures/base-pom';
+import { test } from '../../fixtures/base-pom-fixture';
 
 test.describe('Test Case 25-26: Verify Scrolling', { tag: ['@e2e', '@TC-25', '@TC-26'] }, () => {
   test('Verify that the page scrolls to footer and then back to header', async ({ homePage }) => {
