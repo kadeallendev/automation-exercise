@@ -1,7 +1,7 @@
 import type { APIResponse } from '@playwright/test';
 import BaseAPI from './base-api';
 
-class ProductsListHelper extends BaseAPI {
+export class ProductsListHelper extends BaseAPI {
   public static async create(): Promise<ProductsListHelper> {
     const baseAPI = await BaseAPI.create(`${process.env.BASE_URL}/api`);
     return Object.assign(new ProductsListHelper(), baseAPI);

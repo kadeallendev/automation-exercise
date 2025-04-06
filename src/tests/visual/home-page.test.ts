@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import { test } from '../../fixtures/base-pom';
+import { test } from '../../fixtures/base-pom-fixture';
 
 test.describe('Home Page Visual Regression', { tag: '@visual' }, () => {
   test.beforeAll(async () => {

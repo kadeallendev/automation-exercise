@@ -1,5 +1,5 @@
 import { UserData } from 'page-object-model/data/user-data';
-import { test } from '../../fixtures/base-pom';
+import { test } from '../../fixtures/base-pom-fixture';
 
 let testUser: UserData.User;
 

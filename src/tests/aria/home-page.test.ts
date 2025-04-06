@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import { test } from '../../fixtures/base-pom';
+import { test } from '../../fixtures/base-pom-fixture';
 
 test.describe('Home Page ARIA Regression', { tag: '@aria' }, () => {
   test('Check Home Page', async ({ homePage }) => {

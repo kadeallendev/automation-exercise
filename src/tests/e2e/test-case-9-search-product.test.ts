@@ -1,5 +1,5 @@
 import { ProductData } from 'page-object-model/data/product-data';
-import { test } from '../../fixtures/base-pom';
+import { test } from '../../fixtures/base-pom-fixture';
 
 let testProduct: ProductData.ProductData;
 

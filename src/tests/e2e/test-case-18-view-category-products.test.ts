@@ -1,4 +1,4 @@
-import { test } from '../../fixtures/base-pom';
+import { test } from '../../fixtures/base-pom-fixture';
 
 test.describe('Test Case 18: View Category Products', { tag: ['@e2e', '@TC-18'] }, () => {
   test('Filter Products based on Category', async ({ homePage }) => {
