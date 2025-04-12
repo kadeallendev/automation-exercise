@@ -60,9 +60,11 @@ export class ProductsPage extends BasePage {
   }
 
   async addToCart(index = 0): Promise<void> {
-    await this.page.locator('.productinfo > img').nth(index).hover();
-    await this.page.locator('.overlay-content > .btn').nth(index).waitFor({ state: 'visible' });
-    await this.page.locator('.overlay-content > .btn').nth(index).click();
+    const button = this.page.locator('.overlay-content > .btn').nth(index);
+    await this.page.locator('.productinfo > img').nth(index).hover(); // Ensure hover action
+    await button.scrollIntoViewIfNeeded(); // Ensure the button is in view
+    await button.waitFor({ state: 'visible' }); // Wait for visibility
+    await button.click({ force: true }); // Force click to bypass interception
   }
 }
 

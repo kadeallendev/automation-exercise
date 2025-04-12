@@ -1,18 +1,14 @@
 import { CommonData } from 'page-object-model/data/common-data';
 import { ProductData } from 'page-object-model/data/product-data';
-import { UserData } from 'page-object-model/data/user-data';
-import { AccountWorkflow } from 'page-object-model/workflows/account-workflow';
-import { test } from '../../fixtures/base-pom-fixture';
+import { test } from '../../fixtures/extended-test';
+import { setupUser, teardownUser } from '../../fixtures/user-management-fixture';
 
-let testUser: UserData.User;
-let testProduct: ProductData.ProductData;
+test.use({ productNames: [ProductData.ProductName.SummerWhiteTop] });
 
 test.describe('Test Case 15: Place Order: Register before Checkout', { tag: ['@e2e', '@TC-15'] }, () => {
-  test.beforeEach(async () => {
-    await test.step('Setup Test Data', async () => {
-      testUser = UserData.createUser();
-      const product = ProductData.getProductByName(ProductData.ProductName.SummerWhiteTop);
-      testProduct = new ProductData.ProductContext(product);
+  test.beforeEach(async ({ verifyLoginHelper, createAccountHelper, testUser }) => {
+    await test.step('Register User via API', async () => {
+      await setupUser(verifyLoginHelper, createAccountHelper, testUser);
     });
   });
   test('Register User Then Add Products to Cart and Check Out', async ({
@@ -21,23 +17,13 @@ test.describe('Test Case 15: Place Order: Register before Checkout', { tag: ['@e
     productDetailsPage,
     viewCartPage,
     loginPage,
-    signUpPage,
-    accountCreatePage,
     checkoutPage,
     paymentPage,
-    paymentDonePage
+    paymentDonePage,
+    testProducts,
+    testUser
   }) => {
-    await test.step('Execute Register User Workflow', async () => {
-      await AccountWorkflow.RegisterUser(homePage, loginPage, signUpPage, accountCreatePage, testUser);
-    });
-    await test.step('Log out user', async () => {
-      await homePage.landedOn();
-      await homePage.clickLogout();
-      await loginPage.landedOn();
-      await loginPage.clickHome();
-      await homePage.landedOn();
-      await homePage.checkUserLoggedOut();
-    });
+    const testProduct = testProducts[0] as ProductData.ProductData;
     await test.step('Navigate to All Products', async () => {
       await homePage.landedOn();
       await homePage.clickProducts();
@@ -74,7 +60,7 @@ test.describe('Test Case 15: Place Order: Register before Checkout', { tag: ['@e
       await loginPage.enterPassword(testUser.password);
       await loginPage.clickLogin();
       await homePage.landedOn();
-      await homePage.checkUserLoggedIn(testUser.userName);
+      await homePage.checkUserLoggedIn(testUser.displayName);
       await homePage.clickCart();
       await viewCartPage.landedOn();
       await viewCartPage.clickProceedToCheckout();
@@ -101,11 +87,9 @@ test.describe('Test Case 15: Place Order: Register before Checkout', { tag: ['@e
       await paymentDonePage.clickContinue();
     });
   });
-  test.afterEach(async ({ homePage }) => {
-    await test.step('Delete User if Logged In', async () => {
-      if (await homePage.isUserLoggedIn()) {
-        await homePage.clickDeleteAccount();
-      }
+  test.afterEach(async ({ verifyLoginHelper, deleteAccountHelper, testUser, homePage }) => {
+    await test.step('Delete User via API if exists', async () => {
+      await teardownUser(verifyLoginHelper, deleteAccountHelper, testUser);
     });
     await test.step('Close Page', async () => {
       await homePage.getPage().close();

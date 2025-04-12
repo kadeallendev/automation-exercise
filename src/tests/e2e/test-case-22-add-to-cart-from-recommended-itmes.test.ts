@@ -1,16 +1,11 @@
 import { ProductData } from 'page-object-model/data/product-data';
-import { test } from '../../fixtures/base-pom-fixture';
+import { test } from '../../fixtures/extended-test';
 
-let testProduct: ProductData.ProductData;
+test.use({ productNames: [ProductData.ProductName.BlueTop] });
 
 test.describe('Test Case 22: Add to Cart from Recommended Items', { tag: ['@e2e', '@TC-22'] }, () => {
-  test.beforeEach(async () => {
-    await test.step('Setup Test Data', async () => {
-      const product = ProductData.getProductByName(ProductData.ProductName.BlueTop);
-      testProduct = new ProductData.ProductContext(product);
-    });
-  });
-  test('Add Recommended Item to the Cart', async ({ homePage, viewCartPage }) => {
+  test('Add Recommended Item to the Cart', async ({ homePage, viewCartPage, testProducts }) => {
+    const testProduct = testProducts[0] as ProductData.ProductData;
     await test.step('Select Recommended Item', async () => {
       await homePage.landedOn();
       await homePage.checkForRecommendedItems();

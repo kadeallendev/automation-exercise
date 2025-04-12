@@ -1,18 +1,12 @@
 import { ProductData } from 'page-object-model/data/product-data';
-import { test } from '../../fixtures/base-pom-fixture';
+import { test } from '../../fixtures/extended-test';
 
-let testProduct: ProductData.ProductData;
+test.use({ productNames: [ProductData.ProductName.StylishDress] });
 
 test.describe('Test Case 13: Verify Product Quantity correct in Cart page', { tag: ['@e2e', '@TC-13'] }, () => {
-  test.beforeEach(async () => {
-    await test.step('Setup Test Data', async () => {
-      const product = ProductData.getProductByName(ProductData.ProductName.StylishDress);
-      testProduct = new ProductData.ProductContext(product);
-      testProduct.product.quantity = 4;
-    });
-  });
-
-  test('Add Products to Cart and Verify Quantity is Correct', async ({ homePage, productsPage, productDetailsPage, viewCartPage }) => {
+  test('Add Products to Cart and Verify Quantity is Correct', async ({ homePage, productsPage, productDetailsPage, viewCartPage, testProducts }) => {
+    const testProduct = testProducts[0] as ProductData.ProductData;
+    testProduct.product.quantity = 4; // Set the quantity for the test product
     await test.step('Navigate to All Products', async () => {
       await homePage.landedOn();
       await homePage.clickProducts();

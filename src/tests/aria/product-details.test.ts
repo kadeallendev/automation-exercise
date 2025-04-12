@@ -1,17 +1,12 @@
 import { expect } from '@playwright/test';
 import { ProductData } from 'page-object-model/data/product-data';
-import { test } from '../../fixtures/base-pom-fixture';
+import { test } from '../../fixtures/extended-test';
 
-let testProduct: ProductData.ProductData;
+test.use({ productNames: [ProductData.ProductName.BlueTop] });
 
 test.describe('Product Details Page Visual Regression', { tag: '@aria' }, () => {
-  test.beforeEach(async () => {
-    await test.step('Setup Test Data', async () => {
-      const product = ProductData.getProductByName(ProductData.ProductName.BlueTop);
-      testProduct = new ProductData.ProductContext(product);
-    });
-  });
-  test('Check Product Details Page', async ({ homePage, productsPage, productDetailsPage }) => {
+  test('Check Product Details Page', async ({ homePage, productsPage, productDetailsPage, testProducts }) => {
+    const testProduct = testProducts[0] as ProductData.ProductData;
     await test.step('Navigate to Product Details', async () => {
       await homePage.landedOn();
       await homePage.clickProducts();

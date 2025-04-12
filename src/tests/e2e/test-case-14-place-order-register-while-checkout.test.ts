@@ -1,20 +1,12 @@
 import { CommonData } from 'page-object-model/data/common-data';
 import { ProductData } from 'page-object-model/data/product-data';
 import { UserData } from 'page-object-model/data/user-data';
-import { test } from '../../fixtures/base-pom-fixture';
+import { test } from '../../fixtures/extended-test';
+import { teardownUser } from '../../fixtures/user-management-fixture';
 
-let testUser: UserData.User;
-let testProduct: ProductData.ProductData;
+test.use({ productNames: [ProductData.ProductName.WinterTop] });
 
 test.describe('Test Case 14: Place Order: Register while Checkout', { tag: ['@e2e', '@TC-14'] }, () => {
-  test.beforeEach(async () => {
-    await test.step('Setup Test Data', async () => {
-      testUser = UserData.createUser();
-      const product = ProductData.getProductByName(ProductData.ProductName.WinterTop);
-      testProduct = new ProductData.ProductContext(product);
-    });
-  });
-
   test('Place Order and Register while Checking Out', async ({
     homePage,
     productsPage,
@@ -25,8 +17,11 @@ test.describe('Test Case 14: Place Order: Register while Checkout', { tag: ['@e2
     accountCreatePage,
     checkoutPage,
     paymentPage,
-    paymentDonePage
+    paymentDonePage,
+    testProducts,
+    testUser
   }) => {
+    const testProduct = testProducts[0] as ProductData.ProductData;
     await test.step('Navigate to All Products', async () => {
       await homePage.landedOn();
       await homePage.clickProducts();
@@ -125,11 +120,9 @@ test.describe('Test Case 14: Place Order: Register while Checkout', { tag: ['@e2
       await paymentDonePage.clickContinue();
     });
   });
-  test.afterEach(async ({ homePage }) => {
-    await test.step('Delete User if Logged In', async () => {
-      if (await homePage.isUserLoggedIn()) {
-        await homePage.clickDeleteAccount();
-      }
+  test.afterEach(async ({ verifyLoginHelper, deleteAccountHelper, testUser, homePage }) => {
+    await test.step('Delete User via API if exists', async () => {
+      await teardownUser(verifyLoginHelper, deleteAccountHelper, testUser);
     });
     await test.step('Close Page', async () => {
       await homePage.getPage().close();
