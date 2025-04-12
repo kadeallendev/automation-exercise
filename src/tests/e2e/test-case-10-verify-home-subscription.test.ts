@@ -19,11 +19,6 @@ test.describe('Test Case 10: Verify Subscription on Home Page', { tag: ['@e2e', 
     });
   });
   test.afterEach(async ({ homePage }) => {
-    await test.step('Delete User if Logged In', async () => {
-      if (await homePage.isUserLoggedIn()) {
-        await homePage.clickDeleteAccount();
-      }
-    });
     await test.step('Close Page', async () => {
       await homePage.getPage().close();
     });

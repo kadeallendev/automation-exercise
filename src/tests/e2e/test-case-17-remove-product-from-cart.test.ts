@@ -1,24 +1,17 @@
 import { ProductData } from 'page-object-model/data/product-data';
-import { test } from '../../fixtures/base-pom-fixture';
+import { test } from '../../fixtures/extended-test';
 
-const testProducts: ProductData.ProductData[] = [];
+test.use({ productNames: [ProductData.ProductName.BlueTop, ProductData.ProductName.MenTshirt] });
 
 test.describe('Test Case 17: Remove Products from Cart page', { tag: ['@e2e', '@TC-17'] }, () => {
-  test.beforeEach(async () => {
-    await test.step('Setup Test Data', async () => {
-      let product = ProductData.getProductByName(ProductData.ProductName.BlueTop);
-      testProducts.push(new ProductData.ProductContext(product));
-      product = ProductData.getProductByName(ProductData.ProductName.MenTshirt);
-      testProducts.push(new ProductData.ProductContext(product));
-    });
-  });
-
-  test('Add and then Remove Product from Cart', async ({ homePage, productsPage, viewCartPage }) => {
+  test('Add and then Remove Product from Cart', async ({ homePage, productsPage, viewCartPage, testProducts }) => {
+    const testProduct1 = testProducts[0] as ProductData.ProductData;
+    const testProduct2 = testProducts[1] as ProductData.ProductData;
     await test.step('Navigate to All Products', async () => {
       await homePage.landedOn();
       await homePage.clickProducts();
       await productsPage.landedOn();
-      await productsPage.checkAllProductsForProduct(testProducts[0] as ProductData.ProductData);
+      await productsPage.checkAllProductsForProduct(testProduct1);
     });
     await test.step('Add Products to Cart', async () => {
       await productsPage.landedOn();
@@ -29,16 +22,16 @@ test.describe('Test Case 17: Remove Products from Cart page', { tag: ['@e2e', '@
     });
     await test.step('Verify Products in Cart', async () => {
       await viewCartPage.landedOn();
-      await viewCartPage.checkProductDetailInCart(testProducts[0] as ProductData.ProductData);
-      await viewCartPage.checkProductDetailInCart(testProducts[1] as ProductData.ProductData);
+      await viewCartPage.checkProductDetailInCart(testProduct1);
+      await viewCartPage.checkProductDetailInCart(testProduct2);
     });
     await test.step('Remove Products from Cart', async () => {
       await viewCartPage.landedOn();
-      if (testProducts[0]) {
-        await viewCartPage.removeProductFromCart(testProducts[0].product.id);
+      if (testProduct1) {
+        await viewCartPage.removeProductFromCart(testProduct1.product.id);
       }
-      if (testProducts[1]) {
-        await viewCartPage.removeProductFromCart(testProducts[1].product.id);
+      if (testProduct2) {
+        await viewCartPage.removeProductFromCart(testProduct2.product.id);
       }
     });
     await test.step('Remove Products from Cart', async () => {

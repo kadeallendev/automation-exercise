@@ -78,7 +78,7 @@ export namespace AccountWorkflow {
   export async function LogOut(homePage: HomePage, loginPage: LoginPage, testUser: UserData.User) {
     await test.step('Log Out User', async () => {
       await homePage.landedOn();
-      await homePage.checkUserLoggedIn(testUser.userName);
+      await homePage.checkUserLoggedIn(testUser.displayName);
       await homePage.clickLogout();
       await loginPage.landedOn();
       await loginPage.clickHome();
@@ -106,7 +106,7 @@ export namespace AccountWorkflow {
       await loginPage.landedOn();
       await loginPage.checkLogin();
       await loginPage.enterEmail(testUser.email);
-      await loginPage.enterPassword(testUser.password);
+      await loginPage.enterPassword('wrongpassword');
       await loginPage.clickLogin();
       await loginPage.landedOn();
       await loginPage.checkLogInError();

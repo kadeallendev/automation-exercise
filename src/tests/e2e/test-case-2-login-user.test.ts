@@ -1,18 +1,6 @@
-import type { UserData } from 'page-object-model/data/user-data';
 import { AccountWorkflow } from 'page-object-model/workflows/account-workflow';
-import type { CreateAccountHelper } from '../../api/create-account-helper';
-import type { DeleteAccountHelper } from '../../api/delete-account-helper';
-import type { VerifyLoginHelper } from '../../api/verify-login-helper';
-import { test as baseTest } from '../../fixtures/base-pom-fixture';
-import { setupUser, teardownUser, userFixtures } from '../../fixtures/user-management-fixture';
-
-// Extend the base test with user management fixture
-const test = baseTest.extend<{
-  testUser: UserData.User;
-  verifyLoginHelper: VerifyLoginHelper;
-  createAccountHelper: CreateAccountHelper;
-  deleteAccountHelper: DeleteAccountHelper;
-}>(userFixtures);
+import { test } from '../../fixtures/extended-test';
+import { setupUser, teardownUser } from '../../fixtures/user-management-fixture';
 
 test.describe('Test Case 2: Login User with correct email and password', { tag: ['@e2e', '@TC-02'] }, () => {
   test.beforeEach(async ({ verifyLoginHelper, createAccountHelper, testUser }) => {

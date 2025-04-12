@@ -1,17 +1,11 @@
 import { ProductData } from 'page-object-model/data/product-data';
-import { test } from '../../fixtures/base-pom-fixture';
+import { test } from '../../fixtures/extended-test';
 
-let testProduct: ProductData.ProductData;
+test.use({ productNames: [ProductData.ProductName.SleevelessDress] });
 
 test.describe('Test Case 9: Search Product', { tag: ['@e2e', '@TC-09'] }, () => {
-  test.beforeEach(async () => {
-    await test.step('Setup Test Data', async () => {
-      const product = ProductData.getProductByName(ProductData.ProductName.SleevelessDress);
-      testProduct = new ProductData.ProductContext(product);
-    });
-  });
-
-  test('Verify Searching for Products', async ({ homePage, productsPage, productDetailsPage }) => {
+  test('Verify Searching for Products', async ({ homePage, productsPage, productDetailsPage, testProducts }) => {
+    const testProduct = testProducts[0] as ProductData.ProductData;
     await test.step('Navigate to All Products', async () => {
       await homePage.landedOn();
       await homePage.clickProducts();

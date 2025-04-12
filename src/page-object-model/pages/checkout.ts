@@ -1,6 +1,6 @@
 import { type Locator, type Page, expect } from '@playwright/test';
 import type { ProductData } from 'page-object-model/data/product-data';
-import { UserData } from 'page-object-model/data/user-data';
+import type { UserData } from 'page-object-model/data/user-data';
 import { BasePage } from './base-page';
 
 export class CheckoutPage extends BasePage {
@@ -55,7 +55,7 @@ export class CheckoutPage extends BasePage {
     await expect(this.deliveryAddress).toContainText(testUser.address2);
     const cityStateZip = `${testUser.location.city} ${testUser.location.state} ${testUser.location.zip}`;
     await expect(this.deliveryAddress).toContainText(cityStateZip);
-    await expect(this.deliveryAddress).toContainText(UserData.getCountryFromCode(testUser.location.country));
+    await expect(this.deliveryAddress).toContainText(testUser.location.country);
     await expect(this.deliveryAddress).toContainText(testUser.mobileNumber);
   }
   async verifyFullBillingAddressDetails(testUser: UserData.User): Promise<void> {
@@ -66,7 +66,7 @@ export class CheckoutPage extends BasePage {
     await expect(this.billingAddress).toContainText(testUser.address2);
     const cityStateZip = `${testUser.location.city} ${testUser.location.state} ${testUser.location.zip}`;
     await expect(this.billingAddress).toContainText(cityStateZip);
-    await expect(this.billingAddress).toContainText(UserData.getCountryFromCode(testUser.location.country));
+    await expect(this.billingAddress).toContainText(testUser.location.country);
     await expect(this.billingAddress).toContainText(testUser.mobileNumber);
   }
   async fillMessage(message: string): Promise<void> {
