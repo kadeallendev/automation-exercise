@@ -1,4 +1,6 @@
 import { ProductData } from 'page-object-model/data/product-data';
+import { CartWorkflow } from 'page-object-model/workflows/cart-workflow';
+import { ProductWorkflow } from 'page-object-model/workflows/product-workflow';
 import { test } from '../../fixtures/extended-test';
 
 test.use({ productNames: [ProductData.ProductName.BlueTop, ProductData.ProductName.MenTshirt] });
@@ -8,22 +10,13 @@ test.describe('Test Case 17: Remove Products from Cart page', { tag: ['@e2e', '@
     const testProduct1 = testProducts[0] as ProductData.ProductData;
     const testProduct2 = testProducts[1] as ProductData.ProductData;
     await test.step('Navigate to All Products', async () => {
-      await homePage.landedOn();
-      await homePage.clickProducts();
-      await productsPage.landedOn();
-      await productsPage.checkAllProductsForProduct(testProduct1);
+      await ProductWorkflow.navigateToAllProducts(homePage, productsPage, testProduct1);
     });
     await test.step('Add Products to Cart', async () => {
-      await productsPage.landedOn();
-      await productsPage.addToCart(0);
-      await productsPage.clickContinueShopping();
-      await productsPage.addToCart(1);
-      await productsPage.clickViewCart();
+      await CartWorkflow.addTwoProductsToCart(productsPage, testProduct1, testProduct2);
     });
     await test.step('Verify Products in Cart', async () => {
-      await viewCartPage.landedOn();
-      await viewCartPage.checkProductDetailInCart(testProduct1);
-      await viewCartPage.checkProductDetailInCart(testProduct2);
+      await CartWorkflow.verifyProductsInCart(viewCartPage, testProduct1, testProduct2);
     });
     await test.step('Remove Products from Cart', async () => {
       await viewCartPage.landedOn();
