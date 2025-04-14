@@ -1,4 +1,5 @@
 import { ProductData } from 'page-object-model/data/product-data';
+import { CartWorkflow } from 'page-object-model/workflows/cart-workflow';
 import { test } from '../../fixtures/extended-test';
 
 test.use({ productNames: [ProductData.ProductName.BlueTop] });
@@ -17,8 +18,7 @@ test.describe('Test Case 22: Add to Cart from Recommended Items', { tag: ['@e2e'
       await homePage.clickCart();
     });
     await test.step('Verify Products in Cart', async () => {
-      await viewCartPage.landedOn();
-      await viewCartPage.checkProductDetailInCart(testProduct);
+      await CartWorkflow.verifyProductInCart(viewCartPage, testProduct);
     });
   });
   test.afterEach(async ({ homePage }) => {

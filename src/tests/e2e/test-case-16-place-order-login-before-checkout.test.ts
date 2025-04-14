@@ -1,5 +1,7 @@
 import { CommonData } from 'page-object-model/data/common-data';
 import { ProductData } from 'page-object-model/data/product-data';
+import { CartWorkflow } from 'page-object-model/workflows/cart-workflow';
+import { ProductWorkflow } from 'page-object-model/workflows/product-workflow';
 import { test } from '../../fixtures/extended-test';
 import { setupUser, teardownUser } from '../../fixtures/user-management-fixture';
 
@@ -35,31 +37,16 @@ test.describe('Test Case 16: Place Order: Login before Checkout', { tag: ['@e2e'
     });
 
     await test.step('Navigate to All Products', async () => {
-      await homePage.landedOn();
-      await homePage.clickProducts();
-      await productsPage.landedOn();
-      await productsPage.checkAllProductsForProduct(testProduct);
+      await ProductWorkflow.navigateToAllProducts(homePage, productsPage, testProduct);
     });
     await test.step('View Product Details', async () => {
-      await productsPage.clickViewProductOnAllProducts(testProduct.product.id);
-      await productDetailsPage.landedOn();
-      await productDetailsPage.checkProductDetailsForProduct(testProduct);
+      await ProductWorkflow.viewProductDetails(productsPage, productDetailsPage, testProduct);
     });
-    await test.step('Increase Quantity', async () => {
-      await productDetailsPage.landedOn();
-      await productDetailsPage.setQuantity(testProduct);
-    });
-    await test.step('Add to Cart', async () => {
-      await productDetailsPage.landedOn();
-      await productDetailsPage.addToCart();
-    });
-    await test.step('View Cart ', async () => {
-      await productDetailsPage.landedOn();
-      await productDetailsPage.clickViewCart();
+    await test.step('Increase Quantity and Add to Cart', async () => {
+      await ProductWorkflow.increaseQuantityAddToCart(productDetailsPage, testProduct);
     });
     await test.step('Verify Products in Cart', async () => {
-      await viewCartPage.landedOn();
-      await viewCartPage.checkProductDetailInCart(testProduct);
+      await CartWorkflow.verifyProductInCart(viewCartPage, testProduct);
     });
     await test.step('Proceed to Checkout', async () => {
       await viewCartPage.landedOn();
