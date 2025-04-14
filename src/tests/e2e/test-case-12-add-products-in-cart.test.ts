@@ -13,7 +13,7 @@ test.describe('Test Case 12: Add Products in Cart', { tag: ['@e2e', '@TC-12'] },
       await ProductWorkflow.navigateToAllProducts(homePage, productsPage, testProduct1);
     });
     await test.step('Add Products to Cart', async () => {
-      await CartWorkflow.addTwoProductsToCart(productsPage, testProduct1.product.id, testProduct2.product.id);
+      await CartWorkflow.addTwoProductsToCart(productsPage, testProduct1, testProduct2);
     });
     await test.step('Verify Products in Cart', async () => {
       await CartWorkflow.verifyProductsInCart(viewCartPage, testProduct1, testProduct2);

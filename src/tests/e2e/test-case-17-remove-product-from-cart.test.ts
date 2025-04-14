@@ -13,7 +13,7 @@ test.describe('Test Case 17: Remove Products from Cart page', { tag: ['@e2e', '@
       await ProductWorkflow.navigateToAllProducts(homePage, productsPage, testProduct1);
     });
     await test.step('Add Products to Cart', async () => {
-      await CartWorkflow.addTwoProductsToCart(productsPage, 0, 1);
+      await CartWorkflow.addTwoProductsToCart(productsPage, testProduct1, testProduct2);
     });
     await test.step('Verify Products in Cart', async () => {
       await CartWorkflow.verifyProductsInCart(viewCartPage, testProduct1, testProduct2);
