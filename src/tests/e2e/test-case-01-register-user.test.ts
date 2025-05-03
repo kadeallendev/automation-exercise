@@ -9,7 +9,7 @@ let testUser: UserData.User;
 let verifyLoginHelper: VerifyLoginHelper;
 let deleteAccountHelper: DeleteAccountHelper;
 
-test.describe('Test Case 1: Register User', { tag: ['@e2e', '@TC-01'] }, () => {
+test.describe('Test Case 01: Register User', { tag: ['@e2e', '@TC-01'] }, () => {
   test.beforeAll(async () => {
     verifyLoginHelper = await VerifyLoginHelper.create();
     deleteAccountHelper = await DeleteAccountHelper.create();

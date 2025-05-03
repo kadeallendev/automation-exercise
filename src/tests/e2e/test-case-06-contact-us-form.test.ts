@@ -1,16 +1,16 @@
-import { AccountWorkflow } from 'page-object-model/workflows/account-workflow';
+import { FeedbackWorkflow } from 'page-object-model/workflows/feedback-workflow';
 import { test } from '../../fixtures/extended-test';
 import { setupUser, teardownUser } from '../../fixtures/user-management-fixture';
 
-test.describe('Test Case 3: Login User with incorrect email', { tag: ['@e2e', '@TC-03'] }, () => {
+test.describe('Test Case 06: Contact Us Form', { tag: ['@e2e', '@TC-06'] }, () => {
   test.beforeEach(async ({ verifyLoginHelper, createAccountHelper, testUser }) => {
     await test.step('Register User via API', async () => {
       await setupUser(verifyLoginHelper, createAccountHelper, testUser);
     });
   });
-  test('Attempt to Login with Unregistered User', async ({ homePage, loginPage, testUser }) => {
-    await test.step('Execute Incorrect Log In User Workflow', async () => {
-      await AccountWorkflow.IncorrectLogIn(homePage, loginPage, testUser);
+  test('Fill out Contact Us page and submit', async ({ homePage, contactUsPage, testUser }) => {
+    await test.step('Execute Contact Us Workflow', async () => {
+      await FeedbackWorkflow.SubmitFeedback(homePage, contactUsPage, testUser);
     });
   });
   test.afterEach(async ({ verifyLoginHelper, deleteAccountHelper, testUser, homePage }) => {

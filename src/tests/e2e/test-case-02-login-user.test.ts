@@ -2,7 +2,7 @@ import { AccountWorkflow } from 'page-object-model/workflows/account-workflow';
 import { test } from '../../fixtures/extended-test';
 import { setupUser, teardownUser } from '../../fixtures/user-management-fixture';
 
-test.describe('Test Case 2: Login User with correct email and password', { tag: ['@e2e', '@TC-02'] }, () => {
+test.describe('Test Case 02: Login User with correct email and password', { tag: ['@e2e', '@TC-02'] }, () => {
   test.beforeEach(async ({ verifyLoginHelper, createAccountHelper, testUser }) => {
     await test.step('Register User via API', async () => {
       await setupUser(verifyLoginHelper, createAccountHelper, testUser);
