@@ -2,18 +2,15 @@ import { AccountWorkflow } from 'page-object-model/workflows/account-workflow';
 import { test } from '../../fixtures/extended-test';
 import { setupUser, teardownUser } from '../../fixtures/user-management-fixture';
 
-test.describe('Test Case 4: Logout User', { tag: ['@e2e', '@TC-04'] }, () => {
+test.describe('Test Case 03: Login User with incorrect email', { tag: ['@e2e', '@TC-03'] }, () => {
   test.beforeEach(async ({ verifyLoginHelper, createAccountHelper, testUser }) => {
     await test.step('Register User via API', async () => {
       await setupUser(verifyLoginHelper, createAccountHelper, testUser);
     });
   });
-  test('Register User, Log Out Then Log In User to Delete', async ({ homePage, loginPage, testUser }) => {
-    await test.step('Execute Log In User Workflow', async () => {
-      await AccountWorkflow.LogIn(homePage, loginPage, testUser);
-    });
-    await test.step('Execute Log Out User Workflow', async () => {
-      await AccountWorkflow.LogOut(homePage, loginPage, testUser);
+  test('Attempt to Login with Unregistered User', async ({ homePage, loginPage, testUser }) => {
+    await test.step('Execute Incorrect Log In User Workflow', async () => {
+      await AccountWorkflow.IncorrectLogIn(homePage, loginPage, testUser);
     });
   });
   test.afterEach(async ({ verifyLoginHelper, deleteAccountHelper, testUser, homePage }) => {

@@ -4,7 +4,7 @@ import { test } from '../../fixtures/extended-test';
 
 test.use({ productNames: [ProductData.ProductName.BlueTop] });
 
-test.describe('Test Case 8: Verify All Products and product detail page', { tag: ['@e2e', '@TC-08'] }, () => {
+test.describe('Test Case 08: Verify All Products and product detail page', { tag: ['@e2e', '@TC-08'] }, () => {
   test('Check All Products and Products Detail', async ({ homePage, productsPage, productDetailsPage, testProducts }) => {
     const testProduct = testProducts[0] as ProductData.ProductData;
     await test.step('Navigate to All Products', async () => {
