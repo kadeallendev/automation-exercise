@@ -46,12 +46,12 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@ngneat/falso": "^7.3.0",
-    "@playwright/test": "^1.51.1",
-    "@types/node": "^22.14.1",
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.17",
     "@types/zipcodes": "^8.0.5",
     "dotenv": "^16.5.0",
     "husky": "^9.1.7",
-    "lint-staged": "^15.5.1",
+    "lint-staged": "^16.0.0",
     "typescript": "^5.8.3",
     "zipcodes": "^8.0.0"
   }
