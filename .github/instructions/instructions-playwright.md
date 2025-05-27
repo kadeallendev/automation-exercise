@@ -54,3 +54,23 @@ When investigating a reported bug:
 4. If the bug is not reproducible, document this in the issue and PR.
 5. If the bug is confirmed, fix it and update tests as needed.
 6. Reference the issue in your PR and complete the checklist.
+
+## Best Practices for Page Object Model (POM)
+
+- Encapsulate all page interactions and assertions within POM classes. Avoid direct access to protected properties (like `page`) from test specs.
+- Expose high-level methods in POMs (e.g., `checkProductVisible(productName: string)`) for common actions or checks, so tests remain clean and focused on business logic.
+- Keep selectors and UI logic inside the POM. If selectors change, only the POM needs updating.
+- Use Playwright's `expect` inside POM methods for assertions, or return locators for assertions in the test if you need more flexibility.
+- Prefer descriptive method names in POMs that reflect user actions or verifications (e.g., `addProductToCart`, `isProductVisible`).
+- Keep your test specs readable by calling POM methods, not by duplicating UI logic or selectors.
+- Document new POM methods with comments describing their purpose and usage.
+
+Following these practices will make your tests more maintainable, readable, and robust against UI changes.
+
+## Note on Existing Test Coverage
+
+- Before creating a new test for a reported issue, check if an existing test already covers the scenario.
+- If a relevant test exists, reference it in the issue or pull request and run it to confirm whether the bug is reproducible.
+- Only create a new test if no suitable coverage exists or if the scenario requires additional validation.
+
+This helps avoid duplication and ensures your test suite remains efficient and maintainable.
