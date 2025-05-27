@@ -31,6 +31,14 @@ export class BrandProductsPage extends BasePage {
   async checkBrandBanner(brand: string): Promise<void> {
     await expect(this.brandBanner).toContainText(this.brandBannerMessage(brand));
   }
+
+  async checkProductVisible(productName: string): Promise<void> {
+    // Use first() to avoid strict mode violation if multiple elements match
+    const productSelector = `text=${productName}`;
+    const locator = this.page.locator(productSelector).first();
+    await locator.scrollIntoViewIfNeeded();
+    await expect(locator).toBeVisible();
+  }
 }
 
 export default { BrandProductsPage };
