@@ -16,6 +16,7 @@
 			"domcontentloaded",
 			"Falso",
 			"zipcodes"
-		] // optional but recommended
+		],
+		"chat.mcp.discovery.enabled": true // optional but recommended
 	}
 }
