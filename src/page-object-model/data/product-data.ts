@@ -1,7 +1,7 @@
 export namespace ProductData {
   export enum ProductName {
     BlueTop = 'Blue Top',
-    MenTshirt = 'Men Tshirt',
+    MenTShirt = 'Men Tshirt',
     SleevelessDress = 'Sleeveless Dress',
     StylishDress = 'Stylish Dress',
     WinterTop = 'Winter Top',
@@ -9,11 +9,7 @@ export namespace ProductData {
     MadameTopForWomen = 'Madame Top For Women',
     FancyGreenTop = 'Fancy Green Top'
   }
-  export enum ProductCategory {
-    WomanTop = 'Women > Tops',
-    MenTshirts = 'Men > Tshirts',
-    WomenDress = 'Women > Dress'
-  }
+
   export enum ProductAvailability {
     InStock = 'In Stock'
   }
@@ -26,10 +22,33 @@ export namespace ProductData {
     Madame = 'Madame',
     MastAndHarbour = 'Mast & Harbour'
   }
+  export enum ProductCategory {
+    Women = 'Women',
+    Men = 'Men',
+    Kids = 'Kids'
+  }
+  export enum ProductSubCategory {
+    Dress = 'Dress',
+    Tops = 'Tops',
+    Saree = 'Saree',
+    TShirts = 'Tshirts',
+    Jeans = 'Jeans',
+    TopsAndShirts = 'Tops & Shirts'
+  }
+  export enum ProductCategoryId {
+    WomenDress = 1,
+    WomenTops = 2,
+    WomenSaree = 3,
+    MenTShirts = 4,
+    MenJeans = 5,
+    KidsDress = 6,
+    KidsTopsAndShirts = 7
+  }
+
   export type Product = {
     id: number;
     name: ProductName;
-    category: ProductCategory;
+    category: ProductCategoryId;
     price: number;
     availability: ProductAvailability;
     condition: ProductCondition;
@@ -77,7 +96,7 @@ export namespace ProductData {
     {
       id: 1,
       name: ProductName.BlueTop,
-      category: ProductCategory.WomanTop,
+      category: ProductCategoryId.WomenTops,
       price: 500,
       availability: ProductAvailability.InStock,
       condition: ProductCondition.New,
@@ -86,8 +105,8 @@ export namespace ProductData {
     },
     {
       id: 2,
-      name: ProductName.MenTshirt,
-      category: ProductCategory.MenTshirts,
+      name: ProductName.MenTShirt,
+      category: ProductCategoryId.MenTShirts,
       price: 400,
       availability: ProductAvailability.InStock,
       condition: ProductCondition.New,
@@ -97,7 +116,7 @@ export namespace ProductData {
     {
       id: 3,
       name: ProductName.SleevelessDress,
-      category: ProductCategory.WomenDress,
+      category: ProductCategoryId.WomenDress,
       price: 1000,
       availability: ProductAvailability.InStock,
       condition: ProductCondition.New,
@@ -107,7 +126,7 @@ export namespace ProductData {
     {
       id: 4,
       name: ProductName.StylishDress,
-      category: ProductCategory.WomenDress,
+      category: ProductCategoryId.WomenDress,
       price: 1500,
       availability: ProductAvailability.InStock,
       condition: ProductCondition.New,
@@ -117,7 +136,7 @@ export namespace ProductData {
     {
       id: 5,
       name: ProductName.WinterTop,
-      category: ProductCategory.WomanTop,
+      category: ProductCategoryId.WomenTops,
       price: 600,
       availability: ProductAvailability.InStock,
       condition: ProductCondition.New,
@@ -127,7 +146,7 @@ export namespace ProductData {
     {
       id: 6,
       name: ProductName.SummerWhiteTop,
-      category: ProductCategory.WomanTop,
+      category: ProductCategoryId.WomenTops,
       price: 400,
       availability: ProductAvailability.InStock,
       condition: ProductCondition.New,
@@ -137,7 +156,7 @@ export namespace ProductData {
     {
       id: 7,
       name: ProductName.MadameTopForWomen,
-      category: ProductCategory.WomanTop,
+      category: ProductCategoryId.WomenTops,
       price: 1000,
       availability: ProductAvailability.InStock,
       condition: ProductCondition.New,
@@ -147,7 +166,7 @@ export namespace ProductData {
     {
       id: 8,
       name: ProductName.FancyGreenTop,
-      category: ProductCategory.WomanTop,
+      category: ProductCategoryId.WomenTops,
       price: 700,
       availability: ProductAvailability.InStock,
       condition: ProductCondition.New,
@@ -162,6 +181,30 @@ export namespace ProductData {
       throw new Error(`Product with name ${name} not found`);
     }
     return product;
+  }
+
+  export type ProductCategoryFilter = {
+    id: ProductCategoryId;
+    category: ProductCategory;
+    subCategory: ProductSubCategory;
+  };
+
+  export const productCategoryList: ProductCategoryFilter[] = [
+    { id: ProductCategoryId.WomenDress, category: ProductCategory.Women, subCategory: ProductSubCategory.Dress },
+    { id: ProductCategoryId.WomenTops, category: ProductCategory.Women, subCategory: ProductSubCategory.Tops },
+    { id: ProductCategoryId.WomenSaree, category: ProductCategory.Women, subCategory: ProductSubCategory.Saree },
+    { id: ProductCategoryId.MenTShirts, category: ProductCategory.Men, subCategory: ProductSubCategory.TShirts },
+    { id: ProductCategoryId.MenJeans, category: ProductCategory.Men, subCategory: ProductSubCategory.Jeans },
+    { id: ProductCategoryId.KidsDress, category: ProductCategory.Kids, subCategory: ProductSubCategory.Dress },
+    { id: ProductCategoryId.KidsTopsAndShirts, category: ProductCategory.Kids, subCategory: ProductSubCategory.TopsAndShirts }
+  ];
+
+  export function getCategorySubCategoryById(id: ProductCategoryId): ProductCategoryFilter | undefined {
+    return productCategoryList.find((item) => item.id === id);
+  }
+
+  export function getCategorySubCategory(category: ProductCategory, subCategory: ProductSubCategory): ProductCategoryFilter | undefined {
+    return productCategoryList.find((item) => item.category === category && item.subCategory === subCategory);
   }
 }
 export default { ProductData };

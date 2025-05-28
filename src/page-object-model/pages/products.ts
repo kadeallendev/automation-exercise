@@ -66,6 +66,14 @@ export class ProductsPage extends BasePage {
     await button.waitFor({ state: 'visible' }); // Wait for visibility
     await button.click({ force: true }); // Force click to bypass interception
   }
+
+  async checkProductVisible(productName: string): Promise<void> {
+    // Use first() to avoid strict mode violation if multiple elements match
+    const productSelector = `text=${productName}`;
+    const locator = this.page.locator(productSelector).first();
+    await locator.scrollIntoViewIfNeeded();
+    await expect(locator).toBeVisible();
+  }
 }
 
 export default { ProductsPage };

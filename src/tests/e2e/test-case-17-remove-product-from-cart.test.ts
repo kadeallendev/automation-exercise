@@ -3,7 +3,7 @@ import { CartWorkflow } from 'page-object-model/workflows/cart-workflow';
 import { ProductWorkflow } from 'page-object-model/workflows/product-workflow';
 import { test } from '../../fixtures/extended-test';
 
-test.use({ productNames: [ProductData.ProductName.BlueTop, ProductData.ProductName.MenTshirt] });
+test.use({ productNames: [ProductData.ProductName.BlueTop, ProductData.ProductName.MenTShirt] });
 
 test.describe('Test Case 17: Remove Products from Cart page', { tag: ['@e2e', '@TC-17'] }, () => {
   test('Add and then Remove Product from Cart', async ({ homePage, productsPage, viewCartPage, testProducts }) => {

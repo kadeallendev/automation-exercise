@@ -1,4 +1,5 @@
 import { type Locator, type Page, expect } from '@playwright/test';
+import { ProductData } from '../data/product-data';
 
 export class BasePage {
   protected page: Page;
@@ -118,7 +119,10 @@ export class BasePage {
     return this.page.getByRole('link', { name: brandRegex });
   }
 
-  async filterCategory(category: string, subCategory: string): Promise<void> {
+  async filterCategory(productCategoryId: ProductData.ProductCategoryId): Promise<void> {
+    const mapping = ProductData.getCategorySubCategoryById(productCategoryId);
+    if (!mapping) throw new Error(`Invalid productCategoryId: ${productCategoryId}`);
+    const { category, subCategory } = mapping;
     await this.page.getByRole('heading', { name: 'Category' }).click();
     await this.categoryLocator(category).click();
     await expect(this.subCategoryLocator(category)).toContainText(subCategory);
