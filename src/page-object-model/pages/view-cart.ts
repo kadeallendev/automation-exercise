@@ -1,5 +1,5 @@
 import { type Locator, type Page, expect } from '@playwright/test';
-import type { ProductData } from 'page-object-model/data/product-data';
+import { ProductData } from 'page-object-model/data/product-data';
 import { BasePage } from './base-page';
 
 export class ViewCartPage extends BasePage {
@@ -37,7 +37,13 @@ export class ViewCartPage extends BasePage {
   async checkProductDetailInCart(testProduct: ProductData.ProductData): Promise<void> {
     const productLocator = this.productLocator(testProduct.product.id);
     await expect(productLocator).toContainText(testProduct.product.name);
-    await expect(productLocator).toContainText(testProduct.product.category);
+
+    // Get the category/subcategory mapping for the product's category ID
+    const mapping = ProductData.getCategorySubCategoryById(testProduct.product.category);
+    if (!mapping) throw new Error(`Invalid ProductCategoryId: ${testProduct.product.category}`);
+    const categoryDisplay = `${mapping.category} > ${mapping.subCategory}`;
+    await expect(productLocator).toContainText(categoryDisplay);
+
     await expect(productLocator).toContainText(testProduct.priceDisplayText);
     await expect(productLocator).toContainText(testProduct.product.quantity.toString());
     await expect(productLocator).toContainText(testProduct.totalDisplayText);

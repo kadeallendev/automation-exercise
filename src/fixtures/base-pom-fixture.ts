@@ -1,6 +1,7 @@
 import { test as base } from '@playwright/test';
 import { AccountCreatePage } from 'page-object-model/pages/account-created';
 import { BrandProductsPage } from 'page-object-model/pages/brand-products';
+import { CategoryProductsPage } from 'page-object-model/pages/category-products';
 import { CheckoutPage } from 'page-object-model/pages/checkout';
 import { blockAds } from 'page-object-model/pages/common';
 import { ContactUsPage } from 'page-object-model/pages/contact-us';
@@ -27,6 +28,7 @@ const test = base.extend<{
   paymentPage: PaymentPage;
   productDetailsPage: ProductDetailsPage;
   productsPage: ProductsPage;
+  categoryProductsPage: CategoryProductsPage;
   signUpPage: SignUpPage;
   testCasesPage: TestCasesPage;
   viewCartPage: ViewCartPage;
@@ -76,6 +78,10 @@ const test = base.extend<{
   productsPage: async ({ homePage }, use) => {
     const productsPage = new ProductsPage(homePage.getPage());
     await use(productsPage);
+  },
+  categoryProductsPage: async ({ homePage }, use) => {
+    const categoryProductsPage = new CategoryProductsPage(homePage.getPage());
+    await use(categoryProductsPage);
   },
   signUpPage: async ({ homePage }, use) => {
     const signUpPage = new SignUpPage(homePage.getPage());
