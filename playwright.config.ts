@@ -37,6 +37,7 @@ export default defineConfig({
       mode: 'only-on-failure',
       fullPage: true
     },
+    ignoreHTTPSErrors: true,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'retain-on-first-failure',
