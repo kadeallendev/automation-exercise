@@ -193,13 +193,41 @@ export namespace ProductData {
   };
 
   export const productCategoryList: ProductCategoryFilter[] = [
-    { id: ProductCategoryId.WomenDress, category: ProductCategory.Women, subCategory: ProductSubCategory.Dress },
-    { id: ProductCategoryId.WomenTops, category: ProductCategory.Women, subCategory: ProductSubCategory.Tops },
-    { id: ProductCategoryId.WomenSaree, category: ProductCategory.Women, subCategory: ProductSubCategory.Saree },
-    { id: ProductCategoryId.MenTShirts, category: ProductCategory.Men, subCategory: ProductSubCategory.TShirts },
-    { id: ProductCategoryId.MenJeans, category: ProductCategory.Men, subCategory: ProductSubCategory.Jeans },
-    { id: ProductCategoryId.KidsDress, category: ProductCategory.Kids, subCategory: ProductSubCategory.Dress },
-    { id: ProductCategoryId.KidsTopsAndShirts, category: ProductCategory.Kids, subCategory: ProductSubCategory.TopsAndShirts }
+    {
+      id: ProductCategoryId.WomenDress,
+      category: ProductCategory.Women,
+      subCategory: ProductSubCategory.Dress
+    },
+    {
+      id: ProductCategoryId.WomenTops,
+      category: ProductCategory.Women,
+      subCategory: ProductSubCategory.Tops
+    },
+    {
+      id: ProductCategoryId.WomenSaree,
+      category: ProductCategory.Women,
+      subCategory: ProductSubCategory.Saree
+    },
+    {
+      id: ProductCategoryId.MenTShirts,
+      category: ProductCategory.Men,
+      subCategory: ProductSubCategory.TShirts
+    },
+    {
+      id: ProductCategoryId.MenJeans,
+      category: ProductCategory.Men,
+      subCategory: ProductSubCategory.Jeans
+    },
+    {
+      id: ProductCategoryId.KidsDress,
+      category: ProductCategory.Kids,
+      subCategory: ProductSubCategory.Dress
+    },
+    {
+      id: ProductCategoryId.KidsTopsAndShirts,
+      category: ProductCategory.Kids,
+      subCategory: ProductSubCategory.TopsAndShirts
+    }
   ];
 
   export function getCategorySubCategoryById(id: ProductCategoryId): ProductCategoryFilter | undefined {

@@ -17,7 +17,10 @@ export class BrandProductsPage extends BasePage {
 
   async navigateTo(brand: string): Promise<void> {
     const url = `${this.baseURL}/${brand}`;
-    await this.page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20_000 });
+    await this.page.goto(url, {
+      waitUntil: 'domcontentloaded',
+      timeout: 20_000
+    });
     await this.landedOn(brand);
   }
 

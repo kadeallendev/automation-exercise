@@ -25,17 +25,25 @@ export class BasePage {
     this.page = page;
     this.cartLink = this.page.getByRole('link', { name: ' Cart' });
     this.contactUsLink = this.page.getByRole('link', { name: ' Contact us' });
-    this.continueShoppingButton = this.page.getByRole('button', { name: 'Continue Shopping' });
-    this.deleteAccountLink = this.page.getByRole('link', { name: ' Delete Account' });
+    this.continueShoppingButton = this.page.getByRole('button', {
+      name: 'Continue Shopping'
+    });
+    this.deleteAccountLink = this.page.getByRole('link', {
+      name: ' Delete Account'
+    });
     this.footer = this.page.locator('#footer');
     this.header = this.page.locator('#header');
     this.homeLink = this.page.getByRole('link', { name: ' Home' });
     this.loggedInMessage = 'Logged in as ';
     this.logoutLink = this.page.getByRole('link', { name: ' Logout' });
     this.productsLink = this.page.getByRole('link', { name: ' Products' });
-    this.signupLoginLink = this.page.getByRole('link', { name: ' Signup / Login' });
+    this.signupLoginLink = this.page.getByRole('link', {
+      name: ' Signup / Login'
+    });
     this.subscriptionButton = this.page.getByRole('button', { name: '' });
-    this.subscriptionEmailInput = this.page.getByRole('textbox', { name: 'Your email address' });
+    this.subscriptionEmailInput = this.page.getByRole('textbox', {
+      name: 'Your email address'
+    });
     this.subscriptionSuccessText = 'You have been successfully subscribed!';
     this.subscriptionText = 'Subscription';
     this.testCasesLink = this.page.getByRole('link', { name: ' Test Cases' });

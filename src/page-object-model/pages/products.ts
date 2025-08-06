@@ -16,12 +16,17 @@ export class ProductsPage extends BasePage {
     this.baseURL = `${process.env.BASE_URL}products`;
     this.allProductsText = this.page.locator('body').locator('text=All Products');
     this.searchButton = this.page.getByRole('button', { name: '' });
-    this.searchProductInput = this.page.getByRole('textbox', { name: 'Search Product' });
+    this.searchProductInput = this.page.getByRole('textbox', {
+      name: 'Search Product'
+    });
     this.searchedProductsText = 'Searched Products';
   }
 
   async navigateTo(): Promise<void> {
-    await this.page.goto(this.baseURL, { waitUntil: 'domcontentloaded', timeout: 20_000 });
+    await this.page.goto(this.baseURL, {
+      waitUntil: 'domcontentloaded',
+      timeout: 20_000
+    });
     await this.landedOn();
   }
 

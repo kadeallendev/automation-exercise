@@ -20,11 +20,16 @@ export class PaymentPage extends BasePage {
     this.cardExpiryYearInput = this.page.getByRole('textbox', { name: 'YYYY' });
     this.cardNumberInput = this.page.locator('input[name="card_number"]');
     this.cardOwnerInput = this.page.locator('input[name="name_on_card"]');
-    this.payAndConfirmOrderButton = this.page.getByRole('button', { name: 'Pay and Confirm Order' });
+    this.payAndConfirmOrderButton = this.page.getByRole('button', {
+      name: 'Pay and Confirm Order'
+    });
   }
 
   async navigateTo(): Promise<void> {
-    await this.page.goto(this.baseURL, { waitUntil: 'domcontentloaded', timeout: 20_000 });
+    await this.page.goto(this.baseURL, {
+      waitUntil: 'domcontentloaded',
+      timeout: 20_000
+    });
     await this.landedOn();
   }
 

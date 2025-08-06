@@ -33,32 +33,54 @@ export class SignUpPage extends BasePage {
     this.pageTitleMatch = /.*Automation Exercise - Signup/i;
     this.baseURL = `${process.env.BASE_URL}signup`;
     this.address2Input = this.page.getByRole('textbox', { name: 'Address 2' });
-    this.addressInput = this.page.getByRole('textbox', { name: 'Address * (Street address, P.' });
-    this.cityInput = this.page.getByRole('textbox', { name: 'City * Zipcode *' });
-    this.companyInput = this.page.getByRole('textbox', { name: 'Company', exact: true });
+    this.addressInput = this.page.getByRole('textbox', {
+      name: 'Address * (Street address, P.'
+    });
+    this.cityInput = this.page.getByRole('textbox', {
+      name: 'City * Zipcode *'
+    });
+    this.companyInput = this.page.getByRole('textbox', {
+      name: 'Company',
+      exact: true
+    });
     this.countrySelect = this.page.getByLabel('Country *');
-    this.createAccountButton = this.page.getByRole('button', { name: 'Create Account' });
+    this.createAccountButton = this.page.getByRole('button', {
+      name: 'Create Account'
+    });
     this.daySelect = this.page.locator('#days');
     this.enterAccountInformationText = 'Enter Account Information';
     this.femaleRadio = this.page.getByRole('radio', { name: 'Mrs.' });
-    this.firstNameInput = this.page.getByRole('textbox', { name: 'First name *' });
+    this.firstNameInput = this.page.getByRole('textbox', {
+      name: 'First name *'
+    });
     this.form = this.page.locator('#form');
-    this.lastNameInput = this.page.getByRole('textbox', { name: 'Last name *' });
+    this.lastNameInput = this.page.getByRole('textbox', {
+      name: 'Last name *'
+    });
     this.loginErrorText = this.page.locator('form').filter({ hasText: 'Login' }).locator('text=Your email or password is incorrect!');
     this.maleRadio = this.page.getByRole('radio', { name: 'Mr.' });
-    this.mobileNumberInput = this.page.getByRole('textbox', { name: 'Mobile Number *' });
+    this.mobileNumberInput = this.page.getByRole('textbox', {
+      name: 'Mobile Number *'
+    });
     this.monthSelect = this.page.locator('#months');
-    this.newsletterCheckbox = this.page.getByRole('checkbox', { name: 'Sign up for our newsletter!' });
+    this.newsletterCheckbox = this.page.getByRole('checkbox', {
+      name: 'Sign up for our newsletter!'
+    });
     this.passwordInput = this.page.getByRole('textbox', { name: 'Password *' });
     this.signUpErrorText = this.page.locator('form').filter({ hasText: 'Signup' }).locator('text=Email Address already exist!');
-    this.specialOffersCheckbox = this.page.getByRole('checkbox', { name: 'Receive special offers from' });
+    this.specialOffersCheckbox = this.page.getByRole('checkbox', {
+      name: 'Receive special offers from'
+    });
     this.stateInput = this.page.getByRole('textbox', { name: 'State *' });
     this.yearSelect = this.page.locator('#years');
     this.zipInput = this.page.locator('#zipcode');
   }
 
   async navigateTo(): Promise<void> {
-    await this.page.goto(this.baseURL, { waitUntil: 'domcontentloaded', timeout: 20_000 });
+    await this.page.goto(this.baseURL, {
+      waitUntil: 'domcontentloaded',
+      timeout: 20_000
+    });
     await this.landedOn();
   }
 

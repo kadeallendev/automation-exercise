@@ -17,12 +17,16 @@ export class CheckoutPage extends BasePage {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - Checkout/i;
     this.baseURL = `${process.env.BASE_URL}checkout`;
-    this.addressDetailsHeading = this.page.getByRole('heading', { name: 'Address Details' });
+    this.addressDetailsHeading = this.page.getByRole('heading', {
+      name: 'Address Details'
+    });
     this.billingAddress = this.page.locator('#address_invoice');
     this.deliveryAddress = this.page.locator('#address_delivery');
     this.messageTextarea = this.page.locator('textarea[name="message"]');
     this.orderSummary = this.page.locator('tbody');
-    this.placeOrderButton = this.page.getByRole('link', { name: 'Place Order' });
+    this.placeOrderButton = this.page.getByRole('link', {
+      name: 'Place Order'
+    });
   }
 
   private productLocator(productId: number): Locator {
@@ -30,7 +34,10 @@ export class CheckoutPage extends BasePage {
   }
 
   async navigateTo(): Promise<void> {
-    await this.page.goto(this.baseURL, { waitUntil: 'domcontentloaded', timeout: 20_000 });
+    await this.page.goto(this.baseURL, {
+      waitUntil: 'domcontentloaded',
+      timeout: 20_000
+    });
     await this.landedOn();
   }
 

@@ -99,11 +99,20 @@ export namespace UserData {
       gender = 'female';
     }
     testUser.gender = gender;
-    testUser.firstName = randFirstName({ gender: gender as 'male' | 'female' | undefined, withAccents: false });
+    testUser.firstName = randFirstName({
+      gender: gender as 'male' | 'female' | undefined,
+      withAccents: false
+    });
     testUser.lastName = randLastName({ withAccents: false });
     testUser.displayName = `${testUser.firstName} ${testUser.lastName}`;
     testUser.userName = `${testUser.firstName}.${testUser.lastName}`.toLowerCase();
-    testUser.email = randEmail({ firstName: testUser.firstName, lastName: testUser.lastName, nameSeparator: '.', provider: 'test-email', suffix: 'com' });
+    testUser.email = randEmail({
+      firstName: testUser.firstName,
+      lastName: testUser.lastName,
+      nameSeparator: '.',
+      provider: 'test-email',
+      suffix: 'com'
+    });
     testUser.password = process.env.GLOBAL_PASSWORD as string;
     testUser.birthDate = randomizeBirthday();
     testUser.company = randCompanyName();

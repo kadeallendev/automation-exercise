@@ -16,7 +16,9 @@ export class ViewCartPage extends BasePage {
     this.baseURL = `${process.env.BASE_URL}view_cart`;
     this.cartEmptyText = this.page.locator('b').locator('text=Cart is empty!');
     this.proceedToCheckoutButton = this.page.getByText('Proceed To Checkout');
-    this.registerLoginLink = this.page.getByRole('link', { name: 'Register / Login' });
+    this.registerLoginLink = this.page.getByRole('link', {
+      name: 'Register / Login'
+    });
     this.returnToProductsLink = this.page.getByRole('link', { name: 'here' });
   }
 
@@ -25,7 +27,10 @@ export class ViewCartPage extends BasePage {
   }
 
   async navigateTo(): Promise<void> {
-    await this.page.goto(this.baseURL, { waitUntil: 'domcontentloaded', timeout: 20_000 });
+    await this.page.goto(this.baseURL, {
+      waitUntil: 'domcontentloaded',
+      timeout: 20_000
+    });
     await this.landedOn();
   }
 

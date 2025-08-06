@@ -3,7 +3,9 @@ import { CartWorkflow } from 'page-object-model/workflows/cart-workflow';
 import { ProductWorkflow } from 'page-object-model/workflows/product-workflow';
 import { test } from '../../fixtures/extended-test';
 
-test.use({ productNames: [ProductData.ProductName.BlueTop, ProductData.ProductName.MenTShirt] });
+test.use({
+  productNames: [ProductData.ProductName.BlueTop, ProductData.ProductName.MenTShirt]
+});
 
 test.describe('Test Case 12: Add Products in Cart', { tag: ['@e2e', '@TC-12'] }, () => {
   test('Add Products to the Cart and verify the Cart', async ({ homePage, productsPage, viewCartPage, testProducts }) => {

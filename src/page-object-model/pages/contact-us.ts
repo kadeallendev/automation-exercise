@@ -17,8 +17,13 @@ export class ContactUsPage extends BasePage {
     super(page);
     this.pageTitleMatch = /.*Automation Exercise - Contact Us/i;
     this.baseURL = `${process.env.BASE_URL}contact_us`;
-    this.emailInput = this.page.getByRole('textbox', { name: 'Email', exact: true });
-    this.messageTextarea = this.page.getByRole('textbox', { name: 'Your Message Here' });
+    this.emailInput = this.page.getByRole('textbox', {
+      name: 'Email',
+      exact: true
+    });
+    this.messageTextarea = this.page.getByRole('textbox', {
+      name: 'Your Message Here'
+    });
     this.nameInput = this.page.getByRole('textbox', { name: 'Name' });
     this.subjectInput = this.page.getByRole('textbox', { name: 'Subject' });
     this.submitButton = this.page.getByRole('button', { name: 'Submit' });
@@ -28,7 +33,10 @@ export class ContactUsPage extends BasePage {
   }
 
   async navigateTo(): Promise<void> {
-    await this.page.goto(this.baseURL, { waitUntil: 'domcontentloaded', timeout: 20_000 });
+    await this.page.goto(this.baseURL, {
+      waitUntil: 'domcontentloaded',
+      timeout: 20_000
+    });
     await this.landedOn();
   }
 

@@ -15,16 +15,27 @@ export class HomePage extends BasePage {
     super(page);
     this.baseURL = `${process.env.BASE_URL}`;
     this.pageTitleMatch = /.*Automation Exercise/i;
-    this.automationLink = this.page.getByRole('link', { name: 'Website for automation' });
+    this.automationLink = this.page.getByRole('link', {
+      name: 'Website for automation'
+    });
     this.footerText = this.page.getByText('Copyright © 2021 All rights');
-    this.headerText = this.page.getByRole('heading', { name: 'Full-Fledged practice website' });
+    this.headerText = this.page.getByRole('heading', {
+      name: 'Full-Fledged practice website'
+    });
     this.recommendedItemsAddToCartButton = this.page.locator('.item > div > .product-image-wrapper > .single-products > .productinfo > .btn');
-    this.recommendedItemsHeading = this.page.getByRole('heading', { name: 'recommended items' });
-    this.subscriptionHeading = this.page.getByRole('heading', { name: 'Subscription' });
+    this.recommendedItemsHeading = this.page.getByRole('heading', {
+      name: 'recommended items'
+    });
+    this.subscriptionHeading = this.page.getByRole('heading', {
+      name: 'Subscription'
+    });
   }
 
   async navigateTo(): Promise<void> {
-    await this.page.goto(this.baseURL, { waitUntil: 'domcontentloaded', timeout: 20_000 });
+    await this.page.goto(this.baseURL, {
+      waitUntil: 'domcontentloaded',
+      timeout: 20_000
+    });
     await this.landedOn();
   }
 

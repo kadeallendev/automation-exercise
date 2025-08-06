@@ -21,20 +21,34 @@ export class ProductDetailsPage extends BasePage {
     this.pageTitleMatch = /.*Automation Exercise - Product Details/i;
     this.baseURLPattern = /https:\/\/automationexercise\.com\/product_details\/\d+/i;
     this.baseURL = `${process.env.BASE_URL}product_details/`;
-    this.addToCartButton = this.page.getByRole('button', { name: ' Add to cart' });
+    this.addToCartButton = this.page.getByRole('button', {
+      name: ' Add to cart'
+    });
     this.quantityInput = this.page.locator('#quantity');
-    this.reviewLink = this.page.getByRole('link', { name: 'Write Your Review' });
+    this.reviewLink = this.page.getByRole('link', {
+      name: 'Write Your Review'
+    });
     this.reviewSubmittedText = 'Thank you for your review';
-    this.reviewerEmailInput = this.page.getByRole('textbox', { name: 'Email Address', exact: true });
-    this.reviewerNameInput = this.page.getByRole('textbox', { name: 'Your Name' });
-    this.reviewTextarea = this.page.getByRole('textbox', { name: 'Add Review Here!' });
+    this.reviewerEmailInput = this.page.getByRole('textbox', {
+      name: 'Email Address',
+      exact: true
+    });
+    this.reviewerNameInput = this.page.getByRole('textbox', {
+      name: 'Your Name'
+    });
+    this.reviewTextarea = this.page.getByRole('textbox', {
+      name: 'Add Review Here!'
+    });
     this.section = this.page.locator('section');
     this.submitReviewButton = this.page.getByRole('button', { name: 'Submit' });
   }
 
   async navigateTo(index: number): Promise<void> {
     const url = `${this.baseURL}/${index}`;
-    await this.page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20_000 });
+    await this.page.goto(url, {
+      waitUntil: 'domcontentloaded',
+      timeout: 20_000
+    });
     await this.landedOn();
   }
 

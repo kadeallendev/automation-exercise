@@ -15,7 +15,9 @@ test.describe('Products ARIA Regression', { tag: '@aria' }, () => {
       await expect(productsPage.getPage().locator('#advertisement')).toMatchAriaSnapshot({ name: 'advertisement.aria.yml' });
     });
     await test.step('Verify Products Page - Body ARIA Snapshot', async () => {
-      await expect(productsPage.getPage().locator('body')).toMatchAriaSnapshot({ name: 'body.aria.yml' });
+      await expect(productsPage.getPage().locator('body')).toMatchAriaSnapshot({
+        name: 'body.aria.yml'
+      });
     });
     await test.step('Verify Products Page - Footer ARIA Snapshot', async () => {
       await expect(productsPage.getPage().locator('#footer')).toMatchAriaSnapshot({ name: 'footer.aria.yml' });

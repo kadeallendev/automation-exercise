@@ -18,7 +18,10 @@ export class CategoryProductsPage extends BasePage {
 
   async navigateTo(filter: ProductData.ProductCategoryFilter): Promise<void> {
     const url = `${this.baseURL}/${filter.id}`;
-    await this.page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20_000 });
+    await this.page.goto(url, {
+      waitUntil: 'domcontentloaded',
+      timeout: 20_000
+    });
     await this.landedOn(filter);
   }
 

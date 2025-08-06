@@ -19,13 +19,18 @@ export class PaymentDonePage extends BasePage {
     this.baseURL = `${process.env.BASE_URL}payment_done`;
     this.congratulationsText = this.page.getByText('Congratulations! Your order');
     this.continueButton = this.page.getByRole('link', { name: 'Continue' });
-    this.downloadInvoiceLink = this.page.getByRole('link', { name: 'Download Invoice' });
+    this.downloadInvoiceLink = this.page.getByRole('link', {
+      name: 'Download Invoice'
+    });
     this.orderPlacedText = this.page.getByText('Order Placed!');
   }
 
   async navigateTo(index: number): Promise<void> {
     const url = `${this.baseURL}/${index}`;
-    await this.page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20_000 });
+    await this.page.goto(url, {
+      waitUntil: 'domcontentloaded',
+      timeout: 20_000
+    });
     await this.landedOn();
   }
 

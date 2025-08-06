@@ -35,7 +35,7 @@ export default defineConfig({
     /* Capture Screenshots of tests */
     screenshot: {
       mode: 'only-on-failure',
-      fullPage: true
+      fullPage: true,
     },
     ignoreHTTPSErrors: true,
 
@@ -47,7 +47,7 @@ export default defineConfig({
   },
   expect: {
     toHaveScreenshot: { maxDiffPixels: 100 },
-    timeout: 30_000
+    timeout: 30_000,
   },
   timeout: 60_000,
 
@@ -75,6 +75,6 @@ export default defineConfig({
         ...devices['Desktop Safari'],
         viewport: { width: 1920, height: 1080 },
       },
-    }
-  ]
+    },
+  ],
 });
